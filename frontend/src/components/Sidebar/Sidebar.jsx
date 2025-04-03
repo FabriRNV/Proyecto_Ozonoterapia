@@ -1,4 +1,4 @@
-import { ItemsNav } from '../_nav'; // Importing the navigation items data
+import { ItemsNav } from '../nav/_nav'; // Importing the navigation items data
 import { NavLink } from 'react-router-dom'; // Importing the NavLink component to handle navigation
 import { RiMenu2Line } from "react-icons/ri"; // Importing the Menu icon from react-icons
 import LogoCoder from '../../assets/img/logo_coder.png'; // Importing the logo image
@@ -8,7 +8,7 @@ export function Sidebar({ showMenu, collapsed, setCollapsed }) {
 
   return (
     // The sidebar container: dynamically changes width and position based on 'collapsed' and 'showMenu'
-    <div className={`fixed top-0 w-2/4 xl:left-0 ${collapsed ? "lg:w-64" : "lg:w-20"} duration-300 h-full bg-gradient-to-tl from-prymaryColor from-40%  via-secondaryColor via-65% to-tertiaryColor p-4 flex flex-col justify-between z-30 transition-all ${showMenu ? "left-0" : "-left-full"}`}>
+    <div className={`fixed top-0 w-2/4 xl:left-0 ${collapsed ? "lg:w-64" : "lg:w-20"} duration-300 h-full bg-gradient-to-tl from-blue-500 from-40%  via-secondaryColor via-65% to-tertiaryColor p-4 flex flex-col justify-between z-30 transition-all ${showMenu ? "left-0" : "-left-full"}`}>
     
     {/* The upper section of the sidebar containing the logo and menu button */}
     <div className='text-fourthColor '>
