@@ -105,8 +105,8 @@ export function Header({ collapsed }) {
         {/* User Profile Dropdown */}
         <Menu as="div">
           <Menu.Button className='flex items-center gap-4 py-2 px-4 hover:bg-tertiaryColor hover:text-white p-2 rounded-full transition-colors'>
-            <img src="https://img.freepik.com/foto-gratis/mujer-morena-joven-que-sienta-estilo-campestre-granero_1153-9950.jpg?size=626&ext=jpg" className='w-8 h-8 object-cover rounded-full ring-2'/>
-            <span>Ana Maria Vargas</span>
+            <img src="../assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
+            <span>Fabricio Romay</span>
             <RiArrowDownSLine />
           </Menu.Button>
 
