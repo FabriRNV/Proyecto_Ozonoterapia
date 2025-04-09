@@ -18,7 +18,7 @@ export function Header({ collapsed }) {
   return (
     // The header is positioned at the top of the screen (`fixed`), ensuring it remains visible while scrolling.
     // It dynamically adjusts its width depending on the `collapsed` prop to accommodate the sidebar's state.
-    <header className={`fixed z-20 bg-gradient-to-tr from-blue-800 from-5% to-secondaryColor w-full ${collapsed ? "xl:ml-64 xl:w-[calc(100%-254px)]" : "xl:ml-20 xl:w-[calc(100%-74px)]"} text-white duration-300 flex flex-col md:flex-row items-center justify-between gap-4 p-4`}>
+    <header className={`fixed z-20 bg-gradient-to-tr from-blue-300 from-5% to-secondaryColor w-full ${collapsed ? "xl:ml-64 xl:w-[calc(100%-254px)]" : "xl:ml-20 xl:w-[calc(100%-74px)]"} text-white duration-300 flex flex-col md:flex-row items-center justify-between gap-4 p-4`}>
       
       {/* Search bar */}
       {/* The form contains a search input, styled with a placeholder text and an icon positioned on the left side */}
@@ -55,7 +55,7 @@ export function Header({ collapsed }) {
                 {/* Each Menu.Item represents a message preview with an avatar and short message text */}
                 <Menu.Item>
                   <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-tertiaryColor transition-color'>
-                    <img src="https://img.freepik.com/foto-gratis/mujer-morena-joven-que-sienta-estilo-campestre-granero_1153-9950.jpg?size=626&ext=jpg" className='w-8 h-8 object-cover rounded-full ring-2'/>
+                    <img src="frontend/src/assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
                     <div>
                       <h5>Ana Maria</h5>
                       <p className='text-fourthColor text-sm'>Message.......</p>
@@ -69,7 +69,7 @@ export function Header({ collapsed }) {
 
         {/* Notifications Dropdown */}
         <Menu as="div">
-          <Menu.Button className='hover:bg-tertiaryColor hover:text-white p-2 rounded-full transition-colors relative'>
+          <Menu.Button className='hover:bg-tertiaryColor hover:text-primarycolor p-2 rounded-full transition-colors relative'>
             <RiNotification2Line />
             {/* Red circle indicating new notifications */}
             <RiCheckboxBlankCircleFill className='absolute top-0 right-0 text-[10px] text-red-500'/>
@@ -104,8 +104,8 @@ export function Header({ collapsed }) {
 
         {/* User Profile Dropdown */}
         <Menu as="div">
-          <Menu.Button className='flex items-center gap-4 py-2 px-4 hover:bg-tertiaryColor hover:text-white p-2 rounded-full transition-colors'>
-            <img src="../assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
+          <Menu.Button className='flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-white p-2 rounded-full transition-colors'>
+            <img src="../src/assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
             <span>Fabricio Romay</span>
             <RiArrowDownSLine />
           </Menu.Button>
