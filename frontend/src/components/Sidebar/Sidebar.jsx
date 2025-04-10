@@ -8,7 +8,7 @@ export function Sidebar({ showMenu, collapsed, setCollapsed }) {
 
   return (
     // The sidebar container: dynamically changes width and position based on 'collapsed' and 'showMenu'
-    <div className={`fixed top-0 w-2/4 xl:left-0 ${collapsed ? "lg:w-64" : "lg:w-20"} duration-300 h-full bg p-4 flex flex-col justify-between z-30 transition-all ${showMenu ? "left-0" : "-left-full"}`}>
+    <div className={`fixed top-0 w-2/4 xl:left-0 ${collapsed ? "lg:w-64" : "lg:w-20"} duration-300 h-full bg-amber-300 p-4 flex flex-col justify-between z-30 transition-all ${showMenu ? "left-0" : "-left-full"}`}>
     
     {/* The upper section of the sidebar containing the logo and menu button */}
     <div className='text-fourthColor '>
