@@ -35,7 +35,7 @@ export function Layout() {
   return (
     // Contenedor principal del diseño.
     <div
-      className="min-h-screen bg-cover bg-center text-white bg-blue-100"
+      className="min-h-screen bg-cover bg-center text-white bg-quinto"
     >
       {/* Componente Sidebar */}
       {/* Recibe las props `showMenu`, `collapsed` y `setCollapsed` para manejar su estado. */}

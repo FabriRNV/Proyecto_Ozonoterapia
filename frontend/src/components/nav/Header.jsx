@@ -18,93 +18,23 @@ export function Header({ collapsed }) {
   return (
     // The header is positioned at the top of the screen (`fixed`), ensuring it remains visible while scrolling.
     // It dynamically adjusts its width depending on the `collapsed` prop to accommodate the sidebar's state.
-    <header className={`fixed z-20 bg-gradient-to-tr from-blue-300 from-5% to-secondaryColor w-full ${collapsed ? "xl:ml-64 xl:w-[calc(100%-254px)]" : "xl:ml-20 xl:w-[calc(100%-74px)]"} text-white duration-300 flex flex-col md:flex-row items-center justify-between gap-4 p-4`}>
+    <header className={`fixed z-20 bg-gradient-to-br from-secundario from-5% to-terciario w-full ${collapsed ? "xl:ml-64 xl:w-[calc(100%-254px)]" : "xl:ml-20 xl:w-[calc(100%-74px)]"} text-white duration-300 flex flex-col md:flex-row items-center justify-between gap-4 p-4`}>
       
       {/* Search bar */}
       {/* The form contains a search input, styled with a placeholder text and an icon positioned on the left side */}
       <form className='order-1 md:order-none'>
         <div className='relative'>
-          <RiSearchLine className='text-gray-500 absolute left-4 top-1/2 -translate-y-1/2' />
-          <input type="text" placeholder='Search' className='text-black bg-fourthColor outline-none py-1 pl-10 pr-4 rounded-sm' />
+          <RiSearchLine className='text-primario absolute left-4 top-1/2 -translate-y-1/2' />
+          <input type="text" placeholder='Buscar' className='text-primario bg-quinto outline-1 py-2 pl-12 pr-25 rounded-md text-lg w-full' />
         </div>
       </form>
 
       {/* Navigation section with icons for messages, notifications, and user profile */}
       <nav className='flex items-center gap-2 text-lg'>
 
-        {/* Messages Dropdown */}
-        <Menu as="div">
-          <Menu.Button className='hover:bg-tertiaryColor hover:text-white p-2 rounded-full transition-colors relative'>
-            <RiQuestionAnswerLine />
-          </Menu.Button>
-
-          {/* Transition for messages dropdown - smooth animation when opening/closing */}
-          <Transition
-            enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            leave="transition duration-75 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
-          >
-            {/* Message dropdown content */}
-            <Menu.Items as="section" className="absolute top-6 left-0 xl:right-0 bg-prymaryColor w-72 rounded-lg shadow-lg p-4">
-              <div>
-                <h1 className='font-bold text-center'>Messages</h1>
-                <hr className='my-2' />
-                {/* Each Menu.Item represents a message preview with an avatar and short message text */}
-                <Menu.Item>
-                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-tertiaryColor transition-color'>
-                    <img src="frontend/src/assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
-                    <div>
-                      <h5>Ana Maria</h5>
-                      <p className='text-fourthColor text-sm'>Message.......</p>
-                    </div>
-                  </a>
-                </Menu.Item>
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-
-        {/* Notifications Dropdown */}
-        <Menu as="div">
-          <Menu.Button className='hover:bg-tertiaryColor hover:text-primarycolor p-2 rounded-full transition-colors relative'>
-            <RiNotification2Line />
-            {/* Red circle indicating new notifications */}
-            <RiCheckboxBlankCircleFill className='absolute top-0 right-0 text-[10px] text-red-500'/>
-          </Menu.Button>
-
-          {/* Transition for notifications dropdown */}
-          <Transition
-            enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            leave="transition duration-75 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
-          >
-            {/* Notification dropdown content */}
-            <Menu.Items as="section" className="absolute top-6 left-0 xl:right-0 bg-prymaryColor w-72 rounded-lg shadow-lg p-4">
-              <div>
-                <h1 className='font-bold text-center'>Notifications</h1>
-                <hr className='my-2' />
-                <Menu.Item>
-                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-tertiaryColor transition-color'>
-                    <RiMailSendLine />
-                    <div>
-                      <h5>Valentina Cortez</h5>
-                    </div>
-                  </a>
-                </Menu.Item>
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-
         {/* User Profile Dropdown */}
         <Menu as="div">
-          <Menu.Button className='flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-white p-2 rounded-full transition-colors'>
+          <Menu.Button className='flex items-center gap-4 py-2 px-8 hover:bg-secundario hover:text-cuarto p-2 rounded-full transition-colors'>
             <img src="../src/assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
             <span>Fabricio Romay</span>
             <RiArrowDownSLine />
@@ -120,13 +50,13 @@ export function Header({ collapsed }) {
             leaveTo="transform scale-95 opacity-0"
           >
             {/* Profile dropdown content */}
-            <Menu.Items as="section" className="absolute top-6 right-0 bg-prymaryColor w-72 rounded-lg shadow-lg p-4">
+            <Menu.Items as="section" className="absolute top-6 right-0 bg-secundario w-72 rounded-lg shadow-lg p-4">
               <div>
                 <h1 className='font-bold text-center'>Options</h1>
                 <hr className='my-2' />
                 {/* Account management and logout options */}
                 <Menu.Item>
-                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-tertiaryColor transition-color'>
+                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-terciario text-cuarto transition-color'>
                     <RiSettings5Line />
                     <div>
                       <h5>Manage Account</h5>
@@ -134,7 +64,7 @@ export function Header({ collapsed }) {
                   </a>
                 </Menu.Item>
                 <Menu.Item>
-                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-tertiaryColor transition-color'>
+                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-terciario text-cuarto  transition-color'>
                     <RiLogoutBoxRLine />
                     <div>
                       <h5>Logout</h5>

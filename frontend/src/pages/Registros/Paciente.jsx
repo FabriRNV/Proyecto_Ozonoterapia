@@ -19,7 +19,7 @@ import Tabs from '../../components/Tabs/tabs';
  * Administra el estado de carga y renderiza el contenido correspondiente
  * según el estado actual.
  */
-export function Registro() {
+export function Paciente() {
   const [loading, setLoading] = useState(false); 
   // Variable de estado `loading` para manejar el estado de carga.
 

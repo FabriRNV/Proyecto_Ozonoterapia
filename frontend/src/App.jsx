@@ -1,17 +1,23 @@
 import React from 'react';
 // Importa las funciones y componentes necesarios de 'react-router-dom' para configurar las rutas de la aplicación.
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-// Importa el componente 'Home', que será el componente principal para la ruta "/".
+
 import {Layout} from './components/Layout';
-import {Registro} from './pages/Registros/Registro';
+import {Paciente} from './pages/Registros/Paciente';
+import {ListaRegistro} from './pages/Registros/ListaRegistro';
+import {NuevoRegistro} from './pages/Registros/NuevoRegistro';
+
+
 // Configuración del enrutador utilizando 'createBrowserRouter'.
 // 'createRoutesFromElements' permite definir las rutas directamente en JSX.
 const router = createBrowserRouter(
   createRoutesFromElements(
     // Define una ruta con el path "/" que renderiza el componente 'Home'.
     <Route path="/" element={<Layout />}>
-       <Route path='registros' element={<Registro />}>
-        </Route>
+      <Route path='pacientes' element={<Paciente />}>
+          <Route path='Historial' element={<ListaRegistro />} /> 
+          <Route path='nuevoPaciente' element={<NuevoRegistro />} />
+      </Route>
     </Route>
   )
 );

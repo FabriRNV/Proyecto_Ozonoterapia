@@ -25,7 +25,7 @@ export const ItemsNav = [
       },
       {
         name: "Agregar Paciente",
-        to: "nuevaPaciente",
+        to: "nuevoPaciente",
         icon: <MdHistoryEdu className='w-4 h-4'/>
       },
     ],
