@@ -36,6 +36,7 @@ export function Paciente() {
   }
 
   return (
+    
     <div>
       {/* Componente Tabs que recibe los elementos de navegación y una función para simular la carga */}
       <Tabs 
@@ -55,8 +56,9 @@ export function Paciente() {
         // Si `loading` es falso, renderiza las rutas anidadas.
         <div className='flex flex-row justify-center'>
           <Outlet /> {/* Renderiza las rutas anidadas definidas en React Router. */}
-        </div>
+        </div>   
       )}
     </div>
+    
   );
 }
