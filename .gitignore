@@ -7,8 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-__pycache__
-base
+__pycache__/
+base/
 node_modules
 dist
 dist-ssr
