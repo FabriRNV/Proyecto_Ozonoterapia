@@ -2,14 +2,14 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import { Card, Button } from '../../components/ui';
 
-const TableEntrada = ({ dataTable, handleDeleteOnTable, handleEditTable }) => {
+const TablaRegistro = ({ dataTable, handleDeleteOnTable, handleEditTable }) => {
   const columns = [
     { name: 'ID', selector: row => row.id },
-    { name: 'Proveedor', selector: row => row.supplier },
-    { name: 'Producto', selector: row => row.product },
-    { name: 'Cantidad', selector: row => row.quantity },
-    { name: 'Precio Unitario', selector: row => row.unit_price },
-    { name: 'Total Producto', selector: row => Number(row.quantity * row.unit_price) },
+    { name: 'FHIR ID', selector: row => row.fhir_id },
+    { name: 'Nombre', selector: row => row.nombre },
+    { name: 'Apellido', selector: row => row.apellido },
+    { name: 'Fecha de Nacimiento', selector: row => row.fecha_nacimiento },
+    { name: 'Género', selector: row => row.genero },
     {
       name: 'Actions',
       selector: (row, index) => (
@@ -22,10 +22,10 @@ const TableEntrada = ({ dataTable, handleDeleteOnTable, handleEditTable }) => {
   ];
 
   return (
-    <Card titulo={"Entrada de productos a almacen"}>
+    <Card titulo={"Registro de Pacientes"}>
       <DataTable columns={columns} data={dataTable} theme="solarized" />
     </Card>
   );
 }
 
-export default TableEntrada;
+export default TablaRegistro;

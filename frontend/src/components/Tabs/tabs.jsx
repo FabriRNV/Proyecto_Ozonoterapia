@@ -1,9 +1,4 @@
-import Tabs from './list'; // Importa el componente Tabs que se encargará de renderizar cada pestaña individualmente.
-
-// This functional component 'tabs' receives three props: 
-// 1. simulateLoading: A function or variable that simulates the loading state of the tab content.
-// 2. nameTitle: A string used to display the title of the tabs section.
-// 3. itemsNav: An object that contains an 'items' array, each representing a tab with attributes like 'to', 'icon', and 'name'.
+import Tabs from './list'
 
 const tabs = ({ simulateLoading, nameTitle, itemsNav }) => {
   return (
@@ -35,3 +30,15 @@ const tabs = ({ simulateLoading, nameTitle, itemsNav }) => {
 }
 
 export default tabs
+
+/*
+Possible Improvements:
+
+1. The 'titleName' prop passed to each Tabs component is hardcoded as "Code". It could be made dynamic based on the item attributes or context.
+   
+2. The 'key' prop is based on the index of the item. This is generally acceptable, but using a unique identifier from the item (like an id or name) would be more efficient and avoid potential issues during reordering or rendering updates.
+
+3. The 'Tabs' component may benefit from handling other UI states, such as active or disabled states, to give better feedback to the user.
+
+4. The class structure could potentially be optimized by consolidating some repeated styles, or extracting conditional styling for mobile/desktop views into reusable classes for maintainability.
+*/

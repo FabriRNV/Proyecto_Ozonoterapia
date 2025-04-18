@@ -35,7 +35,7 @@ export function Sidebar({ showMenu, collapsed, setCollapsed }) {
         {ItemsNav.map((item, index) => (
           <li
             key={index}
-            className="hover:bg-tertiaryColor transition-color py-2 px-2 rounded-lg text-fourthColor"
+            className="hover:bg-secundario transition-color py-2 px-2 rounded-lg text-cuarto"
           >
             {/* NavLink component, which adds active class styling when the link is active */}
             <NavLink to={item.to} 

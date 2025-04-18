@@ -16,7 +16,7 @@
 
 export default function Button({ children, ...props }) {
   return (
-    <button className="bg-tertiaryColor text-white font-bold py-2 px-4 rounded-sm hover:bg-orange-500 hover:shadow-lg hover:shadow-orange-500/50" {...props}>
+    <button className="w-full max-w-6xl bg-primario text-cuarto font-bold py-2 px-4 rounded-sm hover:bg-terciario hover:text-primario hover:shadow-lg hover:shadow-terciario" {...props}>
       {children}
     </button>
   );

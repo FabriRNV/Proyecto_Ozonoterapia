@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';  
 import DataTable from 'react-data-table-component';  
-//import serviceEntrada from '../../services/ServicioRegistro';  
+import servicio_registro from '../../services/ServicioRegistro';  
 import { Card, Button } from '../../components/ui';  
 
 export const ListaRegistro = () => {
@@ -10,27 +10,27 @@ export const ListaRegistro = () => {
   const columns = [
     {
       name: 'Indice',  
-      selector: row => row.index  
+      selector: row => row.id  
     },
     {
-      name: 'proveedor',  
-      selector: row => row.supplier  
+      name: 'FHIR ID',
+      selector: row => row.fhir_id  
     },
     {
-      name: 'Nombre Producto',
-      selector: row => row.product  
+      name: 'Nombre',  
+      selector: row => row.nombre  
     },
     {
-      name: 'cantidad',  
-      selector: row => row.quantity 
+      name: 'Apellido',
+      selector: row => row.apellido  
     },
     {
-      name: 'Precio Unitario',  
-      selector: row => row.unit_price 
+      name: 'Fecha De Nacimiento',  
+      selector: row => row.fecha_nacimiento 
     },
     {
-      name: 'Fecha Entrada',  
-      selector: row => row.create_at  
+      name: 'Genero',  
+      selector: row => row.genero 
     },
     {
       name: 'actions',
@@ -39,27 +39,20 @@ export const ListaRegistro = () => {
       ),
     },
   ];
-/*
+
   const getItems = async () => {
     try {
-      const response = await serviceEntrada.getEntrada();
+      const response = await servicio_registro.get_paciente();
       console.log(response);
-      let index = 1;
-      const formattedData = response.map((item) => {
-        return item.entry_product.map((product) => {
-          const row = {
-          index: index,
-          supplier: item.supplier,
-          product: product.product,
-          quantity: product.quantity,
-          unit_price: product.unit_price,
-          create_at: item.create_at
-        };
-        index++;
-        return row;
-      });
-      }).flat();  
-      setData(formattedData); 
+      const formattedData = response.map((item) => ({
+        id: item.id,
+        fhir_id: item.fhir_id,
+        nombre: item.nombre,
+        apellido: item.apellido,
+        fecha_nacimiento: item.fecha_nacimiento,
+        genero: item.genero,
+      }));
+      setData(formattedData);
     } catch (error) {
       console.error(error);  
     }
@@ -67,9 +60,9 @@ export const ListaRegistro = () => {
   useEffect(() => {
     getItems();  
   }, []);  
-*/
+
   return (
-    <Card titulo={"Entrada de productos a almacen"}>
+    <Card titulo={"Registro de Pacientes"}>
       <DataTable columns={columns} data={data} theme="solarized" />
     </Card>
   );

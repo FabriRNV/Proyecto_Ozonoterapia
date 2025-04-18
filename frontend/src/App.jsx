@@ -17,7 +17,9 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="pacientes" element={<Paciente />}>
+          <Route index element={<ListaRegistro />} />
           <Route path="historial" element={<ListaRegistro />} />
+          <Route path="nuevoPaciente" element={<NuevoRegistro />} />
         </Route>
       </Route>
     </Routes>
