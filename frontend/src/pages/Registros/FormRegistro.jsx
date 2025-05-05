@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Input, Label, Select, Card } from '../../components/ui';
+import { Button, Input, Label, Card } from '../../components/ui';
 
-const FormRegistro = ({ newData, setNewData, addNewRow, editData,isDisabled }) => {
-  
+const FormRegistro = ({ newData, setNewData, addNewRow, editData, isDisabled }) => {
   // Estados para mensajes de error
   const [errors, setErrors] = useState({});
 
@@ -15,103 +14,78 @@ const FormRegistro = ({ newData, setNewData, addNewRow, editData,isDisabled }) =
 
   const validateFields = () => {
     let newErrors = {};
+      
 
-    if (!newData.create_at) newErrors.create_at = "La fecha de creación es obligatoria.";
-    if (!newData.supplier) newErrors.supplier = "Debe seleccionar un proveedor.";
-    if (!newData.product) newErrors.product = "Debe seleccionar un producto.";
-    if (!newData.quantity || newData.quantity <= 0) newErrors.quantity = "Ingrese una cantidad válida.";
+
+    if (!newData.nombre) newErrors.nombre = "El nombre es obligatorio.";
+    if (!newData.fecha_nacimiento) newErrors.fecha_nacimiento = "La fecha de nacimiento es obligatoria.";
+    if (!newData.genero) newErrors.genero = "El género es obligatorio.";
+    if (!newData.edad) newErrors.edad = "La edad es obligatoria.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   return (
-    <Card titulo={"Registro Entradas"}>
-      <form className='mt-2 p-6' onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          
-          {/* Fecha de Creación */}
+    <Card titulo={"Registro de Pacientes"}>
+      <form className="mt-2 p-6 w-full max-w-5xl mx-auto" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {/* Nombre */}
           <div>
-            <Label className='block mb-3 text-sm font-bold text-gray-900'>Fecha Creación</Label>
-            <Input 
-              value={newData.create_at || ''} 
-              onChange={(e) => setNewData({ ...newData, create_at: e.target.value })} 
-              type="datetime-local"  
-              disabled={isDisabled}
-            />
-            {errors.create_at && <p className="text-red-500 text-xs mt-1">{errors.create_at}</p>}
+            <Label>Nombre</Label>
+            <Input value={newData.nombre || ''} onChange={e => setNewData({ ...newData, nombre: e.target.value })} type="text" disabled={isDisabled} />
+            {errors.nombre && <p className="text-red-500 text-xs mt-1">{errors.nombre}</p>}
           </div>
-
-          {/* Proveedor */}
+          {/* Fecha de Nacimiento */}
           <div>
-            <Label className='block mb-3 text-sm font-bold text-gray-900'>Proveedor:</Label>
-            <Select 
-              value={newData.supplier || ""} 
-              onChange={(e) => setNewData({ ...newData, supplier: e.target.value })} 
-            >
-              <option value="" disabled>Seleccione un proveedor</option>
-              {proveedor.map((supplierOption, index) => (
-                <option key={'supplier-' + index} value={supplierOption.id} disabled={isDisabled}>
-                  {supplierOption.supplier_name}
-                </option>
-              ))}
-            </Select>
-            {errors.supplier && <p className="text-red-500 text-xs mt-1">{errors.supplier}</p>}
+            <Label>Fecha de Nacimiento</Label>
+            <Input value={newData.fecha_nacimiento || ''} onChange={e => setNewData({ ...newData, fecha_nacimiento: e.target.value })} type="date" disabled={isDisabled} />
+            {errors.fecha_nacimiento && <p className="text-red-500 text-xs mt-1">{errors.fecha_nacimiento}</p>}
           </div>
-
-          {/* Producto, Cantidad y Precio */}
-          <div className="sm:col-span-2">
-            {/* Producto */}
-            <div>
-              <Label className='block mb-3 text-sm font-bold text-gray-900'>Producto:</Label>
-              <Select 
-                value={newData.product || ""}
-                onChange={(e) => {
-                  const selectedId = e.target.value;
-                  const selectedProduct = producto.find(item => item.id == selectedId);
-                  setNewData({
-                    ...newData,
-                    product: selectedId,
-                    unit_price: selectedProduct ? selectedProduct.unit_price : "",
-                  });
-                }} 
-              >
-                <option value="" disabled>Seleccione un producto</option>
-                {producto.map((product) => (
-                  <option key={product.id} value={product.id}>{product.name}</option>
-                ))}
-              </Select>
-              {errors.product && <p className="text-red-500 text-xs mt-1">{errors.product}</p>}
-            </div>
-
-            {/* Cantidad */}
-            <div className='mt-3'>
-              <Label className='block mb-3 text-sm font-bold text-gray-900'>Cantidad</Label>
-              <Input 
-                type="number" 
-                value={newData.quantity || ""} 
-                onChange={(e) => setNewData({ ...newData, quantity: e.target.value })} 
-              />
-              {errors.quantity && <p className="text-red-500 text-xs mt-1">{errors.quantity}</p>}
-            </div>
-
-            {/* Precio Unitario */}
-            <div className='mt-3'>
-              <Label className='block mb-3 text-sm font-bold text-gray-900'>Precio Unitario</Label>
-              <Input 
-                type='number' 
-                disabled={true}
-                value={newData.unit_price || ""} 
-                onChange={(e) => setNewData({ ...newData, unit_price: e.target.value })} 
-              />
-            </div>
+          {/* Estado Civil */}
+          <div>
+            <Label>Estado Civil</Label>
+            <Input value={newData.estado_civil || ''} onChange={e => setNewData({ ...newData, estado_civil: e.target.value })} type="text" disabled={isDisabled} />
+          </div>
+          {/* Procedencia */}
+          <div>
+            <Label>Procedencia</Label>
+            <Input value={newData.procedencia || ''} onChange={e => setNewData({ ...newData, procedencia: e.target.value })} type="text" disabled={isDisabled} />
+          </div>
+          {/* Género */}
+          <div>
+            <Label>Género</Label>
+            <Input value={newData.genero || ''} onChange={e => setNewData({ ...newData, genero: e.target.value })} type="text" disabled={isDisabled} />
+            {errors.genero && <p className="text-red-500 text-xs mt-1">{errors.genero}</p>}
+          </div>
+          {/* Edad */}
+          <div>
+            <Label>Edad</Label>
+            <Input value={newData.edad || ''} onChange={e => setNewData({ ...newData, edad: e.target.value })} type="number" disabled={isDisabled} />
+            {errors.edad && <p className="text-red-500 text-xs mt-1">{errors.edad}</p>}
+          </div>
+          {/* Ocupación */}
+          <div>
+            <Label>Ocupación</Label>
+            <Input value={newData.ocupacion || ''} onChange={e => setNewData({ ...newData, ocupacion: e.target.value })} type="text" disabled={isDisabled} />
+          </div>
+          {/* Teléfono */}
+          <div>
+            <Label>Teléfono</Label>
+            <Input value={newData.telefono || ''} onChange={e => setNewData({ ...newData, telefono: e.target.value })} type="number" disabled={isDisabled} />
+          </div>
+          {/* Email */}
+          <div>
+            <Label>Email</Label>
+            <Input value={newData.email || ''} onChange={e => setNewData({ ...newData, email: e.target.value })} type="email" disabled={isDisabled} />
+          </div>
+          {/* Antecedentes */}
+          <div>
+            <Label>Antecedentes</Label>
+            <Input value={newData.antecedentes || ''} onChange={e => setNewData({ ...newData, antecedentes: e.target.value })} type="text" disabled={isDisabled} />
           </div>
         </div>
 
-        {/* Botón de agregar o actualizar */}
-        <div className="mt-5 col-span-4 flex justify-center">
-          <Button type="submit">{editData !== null ? 'Actualizar' : 'Agregar'}</Button>
-        </div>
       </form>
     </Card>
   );

@@ -1,76 +1,55 @@
 import { useEffect, useState } from 'react';
 import { Button, Card } from '../../components/ui';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import FormEntrada from './FormRegistro';
+import FormRegistro from './FormRegistro';
+import ServicioRegistro from '../../services/ServicioRegistro';
 
-// Component to add a new product to the stock
+// Component to add a new patient
 export const NuevoRegistro = () => {
-  // useState hook to manage the stock and form data
-  const [proveedor, setProveedor] = useState([]);
-  const [producto, setProducto] = useState([]);
+  // useState hook to manage the patient data
   const [inputsDisabled, setInputsDisabled] = useState(false);
   const [newData, setNewData] = useState({
-    supplier: "", 
-    product: "", 
-    quantity: "",
-    unit_price: "", 
-    create_at: ""
+    nombre: "",
+    fecha_nacimiento: "",
+    estado_civil: "",
+    procedencia: "",
+    genero: "",
+    edad: "",
+    ocupacion: "",
+    telefono: "",
+    email: "",
+    antecedentes: ""
   });
 
-  const showProducts = async () => {
-    const response = await serviceItem.getAll();
-    setProducto(response);
-    console.log('Productos: ', response);
-  };
-
-  const showProveedor = async () => {
-    const response = await serviceProveedor.getAll();
-    setProveedor(response);
-    console.log('Proveedor: ', response);
-  };
-
-  useEffect(() => {
-    showProveedor();
-    showProducts();
-  }, []);
-
   const añadirNuevoRegistro = async () => {
-    const entryData = {
-      entry: {
-        create_at: newData.create_at, // Fecha de creación
-      },
-      supplier: {
-        id: parseInt(newData.supplier), // ID del proveedor
-      },
-      products: [], // La tabla ha sido eliminada, por lo que no hay productos
-      entry_products: [], // La tabla ha sido eliminada, por lo que no hay productos
-    };
-
-    console.log(entryData);
+    const patientData = { ...newData };
     try {
-      await serviceEntrada.createEntrada(entryData);
-      alert("NEW ENTRY CREATED SUCCESSFULLY 😺");
+      await ServicioRegistro.create_paciente(patientData);
+      alert("Nuevo paciente creado con éxito");
       setNewData({
-        supplier: "", 
-        product: "", 
-        quantity: "",
-        unit_price: "", 
-        create_at: ""
+        nombre: "",
+        fecha_nacimiento: "",
+        estado_civil: "",
+        procedencia: "",
+        genero: "",
+        edad: "",
+        ocupacion: "",
+        telefono: "",
+        email: "",
+        antecedentes: ""
       });
       setInputsDisabled(false);
     } catch (error) {
-      console.error("Error creating new entry:", error);
-      alert("Failed to create new entry. Please try again.");
+      console.error("Error al crear paciente:", error);
+      alert("Fallo al crear nuevo paciente. por favor intente de nuevo.");
     }
   };
 
   return (
     <div className='w-full flex flex-col px-4 gap-3'>
-      <FormEntrada
+      <FormRegistro
         newData={newData}
         setNewData={setNewData}
-        proveedor={proveedor}
-        producto={producto}
         isDisabled={inputsDisabled}
       />
       <Button onClick={añadirNuevoRegistro}>Crear nuevo Paciente</Button>

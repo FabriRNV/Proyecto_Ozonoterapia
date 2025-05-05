@@ -14,21 +14,11 @@
 
 export default function Card({ children, titulo }) {
   return (
-    <div className="w-full max-w-5xl  bg-secondaryColor  border-tertiaryColor mx-6 md:mx-0 rounded-lg shadow-lg shadow-fourthColor">
-    <div className="rounded-sm p-2 bg-gradient-to-r from-prymaryColor from-5% via-tertiaryColor via-50% to-fourthColor  text-fourthColor text-2xl font-bold"> 
-      {titulo}
-    </div>
+    <div className="w-full max-w-6xl bg-secundario border-primario mx-6 md:mx-0 rounded-lg shadow-lg shadow-cuarto">
+      <div className="rounded-sm p-2 bg-gradient-to-r from-primario from-5% via-tercero via-50% to-terciario text-cuarto text-2xl font-bold">
+        {titulo}
+      </div>
       {children}
     </div>
-  )
+  );
 }
-
-// Possible improvements:
-// 1. Add PropTypes or TypeScript for type checking to ensure that the 
-//    'titulo' prop is a string and 'children' can accept React nodes.
-// 2. Allow optional customization of styles through additional props 
-//    to increase the reusability of the component.
-// 3. Consider adding accessibility features, such as an aria-label 
-//    for the Card component, to improve screen reader support.
-// 4. Implement a default value for 'titulo' in case it is not provided,
-//    enhancing the robustness of the component.

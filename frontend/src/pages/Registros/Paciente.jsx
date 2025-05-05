@@ -28,7 +28,7 @@ export function Paciente() {
    * Esta función simula un efecto de carga activando el estado de carga (`loading`)
    * y luego desactivándolo después de un tiempo especificado.
    */
-  function Simularcarga() {
+  function simulateLoading() {
     setLoading(true); // Activa el estado de carga.
     setTimeout(() => {
       setLoading(false); // Desactiva el estado de carga después de 1 segundo.
@@ -42,7 +42,7 @@ export function Paciente() {
       <Tabs 
         itemsNav={ItemsNav[0]} // Pasa el primer elemento de navegación como prop.
         nameTitle={'pacientes'} // Título de la pestaña.
-        simulateLoading={() => { Simularcarga() }} 
+        simulateLoading={() => { simulateLoading() }} 
         // Pasa la función simulateLoading como prop para que pueda ser llamada desde Tabs.
       />          
 

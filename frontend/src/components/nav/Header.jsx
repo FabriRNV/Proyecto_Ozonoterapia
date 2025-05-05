@@ -25,7 +25,7 @@ export function Header({ collapsed }) {
       <form className='order-1 md:order-none'>
         <div className='relative'>
           <RiSearchLine className='text-primario absolute left-4 top-1/2 -translate-y-1/2' />
-          <input type="text" placeholder='Buscar' className='text-primario bg-quinto outline-1 py-2 pl-12 pr-25 rounded-md text-lg w-full' />
+          <input type="text" placeholder='Buscar' className='text-primario bg-quinto outline-1 py-2 pl-10 pr-20 rounded-md text-lg w-full' />
         </div>
       </form>
 

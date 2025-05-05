@@ -1,86 +1,72 @@
 import React, { useEffect, useState } from 'react';  
 import DataTable from 'react-data-table-component';  
-//import serviceEntrada from '../../services/ServicioRegistro';  
 import { Card, Button } from '../../components/ui';  
+import ServicioRegistro from '../../services/ServicioRegistro';
+import { useNavigate } from 'react-router-dom';
 
 export const ListaRegistro = () => {
-
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   const columns = [
+    { name: 'Nombre', selector: row => row.nombre },
+    { name: 'Fecha de Nacimiento', selector: row => row.fecha_nacimiento },
+    { name: 'Estado Civil', selector: row => row.estado_civil },
+    { name: 'Procedencia', selector: row => row.procedencia },
+    { name: 'Género', selector: row => row.genero },
+    { name: 'Edad', selector: row => row.edad },
+    { name: 'Ocupación', selector: row => row.ocupacion },
+    { name: 'Teléfono', selector: row => row.telefono },
+    { name: 'Email', selector: row => row.email },
+    { name: 'Antecedentes', selector: row => row.antecedentes },
     {
-      name: 'Indice',  
-      selector: row => row.index  
-    },
-    {
-      name: 'proveedor',  
-      selector: row => row.supplier  
-    },
-    {
-      name: 'Nombre Producto',
-      selector: row => row.product  
-    },
-    {
-      name: 'cantidad',  
-      selector: row => row.quantity 
-    },
-    {
-      name: 'Precio Unitario',  
-      selector: row => row.unit_price 
-    },
-    {
-      name: 'Fecha Entrada',  
-      selector: row => row.create_at  
-    },
-    {
-      name: 'actions',
-      selector: (row) => (
-        <Button onClick={() => handleEditClick(row)}>Editar</Button>
-      ),
-    },
+      name: "Acciones",
+      cell: row => (
+        <div className="flex gap-2 justify-center">
+          <Button onClick={async () => {
+            try {
+              const paciente = await ServicioRegistro.getId_paciente(row.id);
+              navigate(`/pacientes/editarRegistro/${paciente.id}`);
+            } catch (error) {
+              console.error('Error al obtener el paciente:', error);
+            }
+          }}>Editar</Button>
+          <Button onClick={() => handleDelete(row)}>Eliminar</Button>
+        </div>
+      )
+    }
   ];
-/*
+
   const getItems = async () => {
     try {
-      const response = await serviceEntrada.getEntrada();
-      console.log(response);
-      let index = 1;
-      const formattedData = response.map((item) => {
-        return item.entry_product.map((product) => {
-          const row = {
-          index: index,
-          supplier: item.supplier,
-          product: product.product,
-          quantity: product.quantity,
-          unit_price: product.unit_price,
-          create_at: item.create_at
-        };
-        index++;
-        return row;
-      });
-      }).flat();  
-      setData(formattedData); 
+      const response = await ServicioRegistro.get_paciente();  
+      console.log(response);  
+      setData(response);  
     } catch (error) {
       console.error(error);  
     }
   };
+
   useEffect(() => {
     getItems();  
   }, []);  
-*/
+
+  const handleDelete = async(paciente) => {
+    const {id, nombre} = paciente
+    if (window.confirm(`¿Quieres eliminar a ${nombre}?`)) {
+      try {
+        await ServicioRegistro.eliminate_paciente(id);
+        const eliminatedpatient = data.filter(paciente => paciente.id !== id);
+        setData(eliminatedpatient);
+      } catch (error) {
+        console.error('Error al eliminar la persona:', error);
+      }
+    }
+  }
+
   return (
-    <Card titulo={"Entrada de productos a almacen"}>
+    <Card titulo={"Registro de Pacientes"}>
       <DataTable columns={columns} data={data} theme="solarized" />
     </Card>
   );
 };
-
-/* 
-Possible Improvements:
-1. **Add Form Fields:** The current form is empty. Consider adding input fields (e.g., for product name, quantity, supplier, etc.) and connecting them to the useForm register method.
-2. **Form Validation:** Implement validation rules using the register function to ensure data integrity before submission.
-3. **Error Handling:** Provide user feedback for invalid inputs or submission errors.
-4. **Loading State:** Add a loading state to indicate when the form is processing the submission, enhancing user experience.
-5. **Data Submission:** Instead of just logging data to the console, consider implementing a function to send the data to a server or API endpoint for further processing.
-6. **Use of State Management:** Depending on the application's scale, consider integrating a state management solution (like Redux) for managing the form state more effectively.
-*/
