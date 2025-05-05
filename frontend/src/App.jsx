@@ -1,28 +1,29 @@
-import React from 'react';
+import React from "react";
 // Importa las funciones y componentes necesarios de 'react-router-dom' para configurar las rutas de la aplicación.
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-// Importa el componente 'Home', que será el componente principal para la ruta "/".
-import Home from './pages/Layout';
+import {
+  Route,
+  Routes,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 
-// Configuración del enrutador utilizando 'createBrowserRouter'.
-// 'createRoutesFromElements' permite definir las rutas directamente en JSX.
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    // Define una ruta con el path "/" que renderiza el componente 'Home'.
-    <Route path="/" element={<Home />}>
-      {/* Aquí podrías agregar rutas anidadas si fuera necesario */}
-    </Route>
-  )
-);
+import { Layout } from "./components/Layout";
+import { Paciente } from "./pages/Registros/Paciente";
+import { ListaRegistro } from "./pages/Registros/ListaRegistro";
+import { NuevoRegistro } from "./pages/Registros/NuevoRegistro";
+import { EditarRegistro } from "./pages/Registros/EditarRegistro";
 
-// Componente principal de la aplicación.
-function App() {
+export default function App() {
   return (
-    <>
-      {/* 'RouterProvider' es el componente que conecta el enrutador configurado con la aplicación. */}
-      <RouterProvider router={router}/>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="pacientes" element={<Paciente />}>
+          <Route index element={<ListaRegistro />} />
+          <Route path="historial" element={<ListaRegistro />} />
+          <Route path='editarRegistro/:id' element={<EditarRegistro />} />
+          <Route path="nuevoPaciente" element={<NuevoRegistro />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
-
-export default App; // Exporta el componente 'App' para que pueda ser utilizado en otros archivos.

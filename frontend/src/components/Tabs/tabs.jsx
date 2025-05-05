@@ -1,14 +1,9 @@
 import Tabs from './list'
 
-// This functional component 'tabs' receives three props: 
-// 1. simulateLoading: A function or variable that simulates the loading state of the tab content.
-// 2. nameTitle: A string used to display the title of the tabs section.
-// 3. itemsNav: An object that contains an 'items' array, each representing a tab with attributes like 'to', 'icon', and 'name'.
-
 const tabs = ({ simulateLoading, nameTitle, itemsNav }) => {
   return (
     // Main container that vertically aligns content in the center and adjusts layout depending on screen size.
-    <div className="flex flex-col items-center justify-center text-sm font-medium text-center text-fourthColor lg:justify-between lg:flex-row mb-3">
+    <div className="flex flex-col items-center justify-center text-sm font-medium text-center text-black lg:justify-between lg:flex-row mb-3">
       
       {/* Title displayed on the left side, uppercase with bold font for emphasis */}
       <h1 className='uppercase text-xl font-bold pl-2'>{nameTitle}</h1>
