@@ -10,6 +10,10 @@ const get_paciente= async() => {
    // Return the data from the response
    return response.data
 }
+const getId_paciente = async(id) => {
+   const response = await axios.get(`${PrincipalUrl}/${id}`);
+   return response.data; // Retorna el objeto directamente
+ }
 const create_paciente = async(object) =>{
    // Perform a POST request to the base URL with the new stock item object
    const response = await axios.post(PrincipalUrl, object)
@@ -21,10 +25,16 @@ const update_paciente = async (updatedObject) => {
    return response.data;
  };
 
- // Export the functions as part of an object for use in other modules
+const eliminate_paciente = async(id) => {
+  const response = await axios.delete(`${PrincipalUrl}/${id}`)
+  return response.data
+}
+
 export default {
    get_paciente: get_paciente,
+   getId_paciente: getId_paciente,
    create_paciente:create_paciente,
    update_paciente: update_paciente,
+   eliminate_paciente:eliminate_paciente,
     
 }

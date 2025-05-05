@@ -9,52 +9,34 @@ export const NuevoRegistro = () => {
   // useState hook to manage the patient data
   const [inputsDisabled, setInputsDisabled] = useState(false);
   const [newData, setNewData] = useState({
-    id: "",
-    fhir_id: "",
     nombre: "",
-    apellido: "",
     fecha_nacimiento: "",
+    estado_civil: "",
+    procedencia: "",
     genero: "",
+    edad: "",
+    ocupacion: "",
+    telefono: "",
+    email: "",
+    antecedentes: ""
   });
-/*
-  const showProducts = async () => {
-    const response = await serviceItem.getAll();
-    setProducto(response);
-    console.log('Productos: ', response);
-  };
 
-  const showProveedor = async () => {
-    const response = await serviceProveedor.getAll();
-    setProveedor(response);
-    console.log('Proveedor: ', response);
-  };
-
-  useEffect(() => {
-    showProveedor();
-    showProducts();
-  }, []);
-*/
   const añadirNuevoRegistro = async () => {
-    const patientData = {
-      id: newData.id,
-      fhir_id: newData.fhir_id,
-      nombre: newData.nombre,
-      apellido: newData.apellido,
-      fecha_nacimiento: newData.fecha_nacimiento,
-      genero: newData.genero,
-    };
-
-    console.log(patientData);
+    const patientData = { ...newData };
     try {
       await ServicioRegistro.create_paciente(patientData);
       alert("Nuevo paciente creado con éxito");
       setNewData({
-        id: "",
-        fhir_id: "",
         nombre: "",
-        apellido: "",
         fecha_nacimiento: "",
+        estado_civil: "",
+        procedencia: "",
         genero: "",
+        edad: "",
+        ocupacion: "",
+        telefono: "",
+        email: "",
+        antecedentes: ""
       });
       setInputsDisabled(false);
     } catch (error) {
