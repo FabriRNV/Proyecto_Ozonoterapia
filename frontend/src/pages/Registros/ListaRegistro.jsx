@@ -19,21 +19,16 @@ export const ListaRegistro = () => {
     { name: 'Teléfono', selector: row => row.telefono },
     { name: 'Email', selector: row => row.email },
     { name: 'Antecedentes', selector: row => row.antecedentes },
+    { name: 'Editar', selector: row => <Button onClick={async () => {
+      try {
+        const paciente = await ServicioRegistro.getId_paciente(row.id);
+        navigate(`/pacientes/editarRegistro/${paciente.id}`);
+      } catch (error) {
+        console.error('Error al obtener el paciente:', error);
+      }
+    }}>Editar</Button>},
     {
-      name: "Acciones",
-      cell: row => (
-        <div className="flex gap-2 justify-center">
-          <Button onClick={async () => {
-            try {
-              const paciente = await ServicioRegistro.getId_paciente(row.id);
-              navigate(`/pacientes/editarRegistro/${paciente.id}`);
-            } catch (error) {
-              console.error('Error al obtener el paciente:', error);
-            }
-          }}>Editar</Button>
-          <Button onClick={() => handleDelete(row)}>Eliminar</Button>
-        </div>
-      )
+      name: "Eliminar", selector: row => (<Button onClick={() => handleDelete(row)}>Eliminar</Button>)
     }
   ];
 
@@ -65,7 +60,7 @@ export const ListaRegistro = () => {
   }
 
   return (
-    <Card titulo={"Registro de Pacientes"}>
+    <Card titulo={"Listado de Pacientes"}>
       <DataTable columns={columns} data={data} theme="solarized" />
     </Card>
   );

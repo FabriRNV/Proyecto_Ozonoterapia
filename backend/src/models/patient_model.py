@@ -10,11 +10,11 @@ class PatientModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String)
-    fecha_nacimiento = Column(Date, nullable=True)
+    fecha_nacimiento = Column(Date,)
     estado_civil = Column(String, nullable=True)
     procedencia = Column(String, nullable=True)
     genero = Column(String)
-    edad = Column(Integer, nullable=True)
+    edad = Column(Integer)
     ocupacion = Column(String, nullable=True)
     telefono = Column(Integer, nullable=True)
     email = Column(String, nullable=True)
