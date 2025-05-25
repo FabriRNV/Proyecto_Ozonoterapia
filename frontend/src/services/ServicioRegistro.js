@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Define the base URL for the stock API
-const PrincipalUrl = "http://localhost:8000/pacientes"
+const PrincipalUrl = "/api/pacientes"
 
 
 const get_paciente= async() => {

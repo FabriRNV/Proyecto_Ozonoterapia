@@ -1,26 +1,72 @@
-from fastapi import FastAPI
+import os
+import logging
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from src.routers.patient_router import patient_route
 from src.routers.cita_router import cita_route
 from src.utils.database import Base, engine
+from src.routers import auth
+from src.models import user
+from dotenv import load_dotenv
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Crea las tablas en la base de datos
-Base.metadata.create_all(bind=engine)
+# Load environment variables
+load_dotenv()
 
-# 🚀 FastAPI App
+# Create database tables
+try:
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database tables created successfully")
+except Exception as e:
+    logger.error(f"Error creating database tables: {str(e)}")
+    raise
+
+# FastAPI App
 app = FastAPI()
 
+# Configure CORS
+frontend_url = os.getenv("FRONTEND_URL")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=[frontend_url, "http://127.0.0.1:5173", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
-app.include_router(patient_route, prefix="/pacientes")
-app.include_router(cita_route, prefix="/citas")
+# Configura Jinja2Templates para apuntar al directorio dist
+templates = Jinja2Templates(directory="../dist")
 
-if __name__ == "__main__":
-    Base.metadata.create_all(bind=engine)
+# Monta el directorio dist para servir archivos estáticos
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+
+# Include routers
+app.include_router(patient_route, prefix="/api/pacientes")
+app.include_router(cita_route, prefix="/api/citas")
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Global error handler caught: {str(exc)}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error. Please try again later."},
+    )
+
+
+@app.exception_handler(404)
+async def exception_404_handler(request, exc):
+    return FileResponse("dist/index.html")
+
+
+@app.get("/")
+async def serve_react():
+    return HTMLResponse(open("dist/index.html").read())

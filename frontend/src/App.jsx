@@ -3,11 +3,12 @@ import React from "react";
 import {
   Route,
   Routes,
-  createRoutesFromElements,
-  RouterProvider,
+  Navigate,
 } from "react-router-dom";
 
 import { Layout } from "./components/Layout";
+import Login from "./pages/Login/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import { Paciente } from "./pages/Registros/Paciente";
 import { ListaRegistro } from "./pages/Registros/ListaRegistro";
@@ -22,7 +23,17 @@ import { EditarCita } from "./pages/Citas/EditarCita";
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/Menu"
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Navigate to="/Menu/pacientes" replace />} />
         <Route path="pacientes" element={<Paciente />}>
           <Route index element={<ListaRegistro />} />
           <Route path="historial" element={<ListaRegistro />} />
