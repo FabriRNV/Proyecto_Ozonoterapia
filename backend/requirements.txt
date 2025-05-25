@@ -12,8 +12,6 @@ dnspython==2.7.0
 ecdsa==0.19.1
 email_validator==2.2.0
 fastapi==0.115.12
-fhir-core==1.0.1
-fhir.resources==7.0.0
 google-auth==2.40.1
 google-auth-oauthlib==1.2.0
 greenlet==3.2.0
