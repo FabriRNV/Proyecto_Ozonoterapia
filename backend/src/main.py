@@ -5,11 +5,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from src.routers.patient_router import patient_route
-from src.routers.cita_router import cita_route
-from src.utils.database import Base, engine
-from src.routers import auth
-from src.models import user
+from routers.patient_router import patient_route
+from routers.cita_router import cita_route
+from utils.database import Base, engine
+from routers import auth
+from models import user
 from dotenv import load_dotenv
 
 # Configure logging
@@ -31,7 +31,7 @@ except Exception as e:
 app = FastAPI()
 
 # Configure CORS
-frontend_url = os.getenv("FRONTEND_URL")
+frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[frontend_url, "http://127.0.0.1:5173", "http://localhost:5173"],
