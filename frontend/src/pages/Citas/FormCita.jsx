@@ -1,0 +1,97 @@
+import React, { useState } from 'react';
+import { Button, Input, Label, Card } from '../../components/ui';
+
+const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
+  const [errors, setErrors] = useState({});
+
+  const validateFields = () => {
+    let newErrors = {};
+    if (!newData.paciente) newErrors.paciente = "El paciente es obligatorio.";
+    if (!newData.fecha) newErrors.fecha = "La fecha es obligatoria.";
+    if (!newData.hora) newErrors.hora = "La hora es obligatoria.";
+    if (!newData.motivo) newErrors.motivo = "El motivo es obligatorio.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+  return (
+    <div className="w-full flex flex-col items-center px-4 gap-6">
+      <Card titulo="Gestión de Citas Médicas">
+        <form className="grid grid-cols-1 gap-6 sm:grid-cols-2 p-4">
+          {/* Paciente */}
+          <div>
+            <Label>Paciente</Label>
+            <Input
+              value={newData.paciente}
+              onChange={(e) => setNewData({ ...newData, paciente: e.target.value })}
+              type="text"
+              placeholder="Nombre del paciente"
+              disabled={isDisabled}
+            />
+          </div>
+          {/* Fuente */}
+                    <div>
+            <Label>Fuente</Label>
+            <Input
+              value={newData.fuente}
+              onChange={(e) => setNewData({ ...newData, fuente: e.target.value })}
+              type="text"
+              placeholder="Fuente de la historia"
+              disabled={isDisabled}
+            />
+          </div>
+          {/* Fecha */}
+          <div>
+            <Label>Fecha</Label>
+            <Input
+              value={newData.fecha}
+              onChange={(e) => setNewData({ ...newData, fecha: e.target.value })}
+              type="date"
+              disabled={isDisabled}
+            />
+          </div>
+
+          {/* Hora */}
+          <div>
+            <Label>Hora</Label>
+            <Input
+              value={newData.hora}
+              onChange={(e) => setNewData({ ...newData, hora: e.target.value })}
+              type="time"
+              disabled={isDisabled}
+            />
+          </div>
+
+
+          {/* Motivo */}
+          <div>
+            <Label>Motivo</Label>
+            <Input
+              value={newData.motivo}
+              onChange={(e) => setNewData({ ...newData, motivo: e.target.value })}
+              type="text"
+              placeholder="Motivo de la Consulta"
+              disabled={isDisabled}
+            />
+          </div>
+
+          {/* Enfermedad */}
+          <div>
+            <Label>Enfermedad</Label>
+            <Input
+              value={newData.enfermedad}
+              onChange={(e) => setNewData({ ...newData, enfermedad: e.target.value })}
+              type="text"
+              placeholder="Enfermedad actual"
+              disabled={isDisabled}
+            />
+          </div>
+        </form>
+      </Card>
+    </div>
+  );
+};
+
+export default FormCita;
