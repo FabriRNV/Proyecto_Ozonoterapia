@@ -10,8 +10,7 @@ lerna-debug.log*
 __pycache__/
 base/
 node_modules
-dist
-dist-ssr
+
 *.local
 .env
 # Editor directories and files
