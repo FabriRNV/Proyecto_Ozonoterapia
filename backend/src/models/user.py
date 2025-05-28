@@ -1,7 +1,8 @@
+from typing import Annotated
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.sql import func
 from src.utils.database import Base
-from pydantic import BaseModel, EmailStr, constr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class User(Base):
@@ -20,9 +21,9 @@ class User(Base):
 
 class UserBase(BaseModel):
     email: EmailStr
-    username: constr(min_length=3, max_length=50)
-    phone_number: constr(min_length=10, max_length=15)
-    password: constr(min_length=8)
+    username: Annotated[str, Field(min_length=3, max_length=50)]
+    phone_number: Annotated[str, Field(min_length=10, max_length=15)]
+    password: Annotated[str, Field(min_length=8)]
 
 
 class UserCreate(UserBase):
