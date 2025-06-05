@@ -36,10 +36,9 @@ export const ListaCita = () => {
   const getItems = async () => {
     try {
       const response = await ServicioCita.get_cita();  
-      console.log(response);  
       setData(response);  
     } catch (error) {
-      console.error(error);  
+      console.error('Error al obtener las citas:', error);   
     }
   };
 

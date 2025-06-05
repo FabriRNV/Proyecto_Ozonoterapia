@@ -35,10 +35,9 @@ export const ListaRegistro = () => {
   const getItems = async () => {
     try {
       const response = await ServicioRegistro.get_paciente();  
-      console.log(response);  
       setData(response);  
     } catch (error) {
-      console.error(error);  
+      console.error('Error al obtener los pacientes:', error);  
     }
   };
 
