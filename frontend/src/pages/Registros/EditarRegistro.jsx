@@ -28,7 +28,7 @@ export const EditarRegistro = () => {
         setSelectedPatient(patient);
       }
     } catch (error) {
-      console.error('Error fetching patient:', error);
+      console.error('Error obteniendo los datos del paciente:', error);
     }
   };
  
@@ -44,7 +44,7 @@ export const EditarRegistro = () => {
       await ServicioRegistro.update_paciente(selectedPatient);
       navigate('/pacientes/ListaRegistro');
     } catch (error) {
-      console.error('Error updating patient:', error);
+      console.error('Error al actualizar paciente', error);
     }
   }
 

@@ -39,7 +39,7 @@ export function Sidebar({ showMenu, collapsed, setCollapsed }) {
           >
             {/* NavLink component, which adds active class styling when the link is active */}
             <NavLink to={item.to} 
-              className={({isActive})=> isActive ? `bg-myDeadBlue boreder p-1 ${collapsed ? "h-10":"h-fit p-2"} rounded-md flex items-center gap-4` : "flex items-center gap-4"}>
+              className={({isActive})=> isActive ? `bg-primario boreder p-1 ${collapsed ? "h-10":"h-fit p-2"} rounded-md flex items-center gap-4` : "flex items-center gap-4"}>
               
               {/* Icon and name of the navigation item */}
               <span className='text-xl'>{item.icon}</span>

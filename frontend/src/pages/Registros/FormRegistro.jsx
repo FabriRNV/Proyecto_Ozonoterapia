@@ -27,6 +27,7 @@ const FormRegistro = ({ newData, setNewData, addNewRow, editData, isDisabled }) 
   };
 
   return (
+    <div className="w-full flex flex-col items-center px-4 gap-6">
     <Card titulo={"Registro de Pacientes"}>
       <form className="mt-2 p-6 w-full max-w-5xl mx-auto" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -85,9 +86,9 @@ const FormRegistro = ({ newData, setNewData, addNewRow, editData, isDisabled }) 
             <Input value={newData.antecedentes || ''} onChange={e => setNewData({ ...newData, antecedentes: e.target.value })} type="text" disabled={isDisabled} />
           </div>
         </div>
-
       </form>
     </Card>
+  </div>
   );
 };
 

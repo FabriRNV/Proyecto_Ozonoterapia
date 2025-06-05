@@ -31,6 +31,23 @@ export const ItemsNav = [
     ],
   },
   {
+    name: "Citas Médicas",
+    icon: <MdAssignmentAdd />,
+    to: "citas",
+    items: [
+      {
+        name: "Lista Citas",
+        to: "listaCitas",
+        icon: <MdViewList className='w-4 h-4'/>
+      },
+      {
+        name: "Agregar Cita",
+        to: "nuevaCita",
+        icon: <MdAssignmentTurnedIn className='w-4 h-4'/>
+      },
+    ],
+  },
+  {
     name: "Tratamientos",
     icon: <MdAssignmentTurnedIn />,
     to: "tratamientos",
@@ -43,23 +60,6 @@ export const ItemsNav = [
       {
         name: "Agregar tratamiento",
         to: "nuevoTratamiento",
-        icon: <MdAssignmentTurnedIn className='w-4 h-4'/>
-      },
-    ],
-  },
-  {
-    name: "Seguimiento tratamientos",
-    icon: <MdAssignmentAdd />,
-    to: "Seguimientos",
-    items: [
-      {
-        name: "Listar seguimientos",
-        to: "listaSeguimientos",
-        icon: <MdViewList className='w-4 h-4'/>
-      },
-      {
-        name: "Agregar Seguimiento",
-        to: "nuevoSeguimiento",
         icon: <MdAssignmentTurnedIn className='w-4 h-4'/>
       },
     ],

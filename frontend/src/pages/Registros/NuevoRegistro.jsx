@@ -46,7 +46,7 @@ export const NuevoRegistro = () => {
   };
 
   return (
-    <div className='w-full flex flex-col px-4 gap-3'>
+    <div className='w-full flex flex-col items-center px-4 gap-6'>
       <FormRegistro
         newData={newData}
         setNewData={setNewData}
