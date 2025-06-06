@@ -15,21 +15,11 @@ export const ListaCita = () => {
     { name: 'Motivo', selector: row => row.motivo },
     { name: 'Enfermedad', selector: row => row.enfermedad },
     { name: 'Fuente', selector: row => row.fuente },
+    { name: 'Editar', selector: row => <Button onClick={() => {
+      navigate(`/Menu/citas/editarCita/${row.id}`);
+    }}>Editar</Button>},
     {
-      name: "Acciones",
-      cell: row => (
-        <div className="flex gap-2 justify-center">
-          <Button onClick={async () => {
-            try {
-              const cita = await ServicioCita.getId_cita(row.id);
-              navigate(`/citas/editarCita/${cita.id}`);
-            } catch (error) {
-              console.error('Error al obtener la cita:', error);
-            }
-          }}>Editar</Button>
-          <Button onClick={() => handleDelete(row)}>Eliminar</Button>
-        </div>
-      )
+      name: "Eliminar", selector: row => (<Button onClick={() => handleDelete(row)}>Eliminar</Button>)
     }
   ];
 
