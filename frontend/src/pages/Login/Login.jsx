@@ -6,9 +6,9 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
     username: '',
+    password: '',
+    email: '',
     phoneNumber: ''
   });
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Login = () => {
     try {
       if (isLogin) {
         const loginFormData = new URLSearchParams();
-        loginFormData.append('username', formData.email);
+        loginFormData.append('username', formData.username);
         loginFormData.append('password', formData.password);
 
         const response = await api.post('/api/auth/token', loginFormData, {
@@ -70,7 +70,7 @@ const Login = () => {
           : error.response.data.detail;
         setError(errorMessage);
       } else if (error.response?.status === 401) {
-        setError('Correo o contraseña inválidos');
+        setError('Usuario o contraseña inválidos');
       } else {
         setError(error.response?.data?.detail || 'Error al conectar con el servidor');
       }
@@ -134,10 +134,10 @@ const Login = () => {
           {!isLogin && (
             <>
               <input
-                type="text"
-                name="username"
-                placeholder="Nombre de usuario"
-                value={formData.username}
+                type="email"
+                name="email"
+                placeholder="Correo electrónico"
+                value={formData.email}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-terciario text-primario bg-quinto"
                 required={!isLogin}
@@ -154,10 +154,10 @@ const Login = () => {
             </>
           )}
           <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            value={formData.email}
+            type="text"
+            name="username"
+            placeholder="Nombre de usuario"
+            value={formData.username}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-terciario text-primario bg-quinto"
             required

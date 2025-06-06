@@ -22,8 +22,10 @@ const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
         <form className="grid grid-cols-1 gap-6 sm:grid-cols-2 p-4">
           {/* Paciente */}
           <div>
-            <Label>Paciente</Label>
+            <Label htmlFor="paciente">Paciente</Label>
             <Input
+              id="paciente"
+              name="paciente"
               value={newData.paciente}
               onChange={(e) => setNewData({ ...newData, paciente: e.target.value })}
               type="text"
@@ -33,8 +35,10 @@ const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
           </div>
           {/* Fuente */}
                     <div>
-            <Label>Fuente</Label>
+            <Label htmlFor="fuente">Fuente</Label>
             <Input
+              id="fuente"
+              name="fuente"
               value={newData.fuente}
               onChange={(e) => setNewData({ ...newData, fuente: e.target.value })}
               type="text"
@@ -44,8 +48,10 @@ const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
           </div>
           {/* Fecha */}
           <div>
-            <Label>Fecha</Label>
+            <Label htmlFor="fecha">Fecha</Label>
             <Input
+              id="fecha"
+              name="fecha"
               value={newData.fecha}
               onChange={(e) => setNewData({ ...newData, fecha: e.target.value })}
               type="date"
@@ -55,8 +61,10 @@ const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
 
           {/* Hora */}
           <div>
-            <Label>Hora</Label>
+            <Label htmlFor="hora">Hora</Label>
             <Input
+              id="hora"
+              name="hora"
               value={newData.hora}
               onChange={(e) => setNewData({ ...newData, hora: e.target.value })}
               type="time"
@@ -67,8 +75,10 @@ const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
 
           {/* Motivo */}
           <div>
-            <Label>Motivo</Label>
+            <Label htmlFor="motivo">Motivo</Label>
             <Input
+              id="motivo"
+              name="motivo"
               value={newData.motivo}
               onChange={(e) => setNewData({ ...newData, motivo: e.target.value })}
               type="text"
@@ -79,8 +89,10 @@ const FormCita = ({ newData, setNewData,editData, isDisabled }) => {
 
           {/* Enfermedad */}
           <div>
-            <Label>Enfermedad</Label>
+            <Label htmlFor="enfermedad">Enfermedad</Label>
             <Input
+              id="enfermedad"
+              name="enfermedad"
               value={newData.enfermedad}
               onChange={(e) => setNewData({ ...newData, enfermedad: e.target.value })}
               type="text"

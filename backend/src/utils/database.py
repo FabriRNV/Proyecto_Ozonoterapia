@@ -11,9 +11,8 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
+# Configuración de la base de datos
 DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL environment variable is not set")
 
 try:
     engine = create_engine(DATABASE_URL)

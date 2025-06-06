@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react' // Import React hooks for managing s
 import { Button, Card, Input, Label } from '../../components/ui' // Import UI components
 import ServicioRegistro from '../../services/ServicioRegistro' // Import service to handle API calls for items
 import { useParams,useNavigate } from 'react-router-dom'
+import { useAgeCalculator } from '../../hooks/useAgeCalculator'
 
 
 export const EditarRegistro = () => {
@@ -19,6 +20,12 @@ export const EditarRegistro = () => {
   })
   const params = useParams()
   const navigate = useNavigate()
+  const { handleBirthDateChange } = useAgeCalculator()
+  
+  // Opciones para los combobox
+  const estadoCivilOptions = ["Soltero", "Casado", "Separado", "Divorciado", "Viudo"];
+  const procedenciaOptions = ["Cochabamba", "La Paz", "Santa Cruz", "Oruro", "Potosi", "Beni", "Pando", "Chuquisaca", "Tarija"];
+  const generoOptions = ["Masculino", "Femenino"];
   
   const getPatient = async(id) => {
     try {
@@ -42,7 +49,7 @@ export const EditarRegistro = () => {
     event.preventDefault(); 
     try {
       await ServicioRegistro.update_paciente(selectedPatient);
-      navigate('/pacientes/ListaRegistro');
+      navigate("/Menu/pacientes/historial");
     } catch (error) {
       console.error('Error al actualizar paciente', error);
     }
@@ -54,8 +61,10 @@ export const EditarRegistro = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Nombre */}
           <div>
-            <Label>Nombre</Label>
+            <Label htmlFor="nombre">Nombre</Label>
             <Input 
+              id="nombre"
+              name="nombre"
               value={selectedPatient.nombre || ''} 
               onChange={e => setSelectedPatient({...selectedPatient, nombre: e.target.value})}
             />
@@ -63,55 +72,84 @@ export const EditarRegistro = () => {
           
           {/* Fecha de Nacimiento */}
           <div>
-            <Label>Fecha de Nacimiento</Label>
+            <Label htmlFor="fecha_nacimiento">Fecha de Nacimiento</Label>
             <Input 
+              id="fecha_nacimiento"
+              name="fecha_nacimiento"
               value={selectedPatient.fecha_nacimiento || ''}
-              onChange={e => setSelectedPatient({...selectedPatient, fecha_nacimiento: e.target.value})}
+              onChange={e => handleBirthDateChange(e.target.value, setSelectedPatient)}
               type="date"
             />
           </div>
 
           {/* Estado Civil */}
           <div>
-            <Label>Estado Civil</Label>
+            <Label htmlFor="estado_civil">Estado Civil</Label>
             <Input 
+              id="estado_civil"
+              name="estado_civil"
               value={selectedPatient.estado_civil || ''}
               onChange={e => setSelectedPatient({...selectedPatient, estado_civil: e.target.value})}
+              list="estado-civil-options"
             />
+            <datalist id="estado-civil-options">
+              {estadoCivilOptions.map((option, index) => (
+                <option key={index} value={option} />
+              ))}
+            </datalist>
           </div>
 
           {/* Procedencia */}
           <div>
-            <Label>Procedencia</Label>
+            <Label htmlFor="procedencia">Procedencia</Label>
             <Input 
+              id="procedencia"
+              name="procedencia"
               value={selectedPatient.procedencia || ''}
               onChange={e => setSelectedPatient({...selectedPatient, procedencia: e.target.value})}
+              list="procedencia-options"
             />
+            <datalist id="procedencia-options">
+              {procedenciaOptions.map((option, index) => (
+                <option key={index} value={option} />
+              ))}
+            </datalist>
           </div>
 
           {/* Género */}
           <div>
-            <Label>Género</Label>
+            <Label htmlFor="genero">Género</Label>
             <Input 
+              id="genero"
+              name="genero"
               value={selectedPatient.genero || ''}
               onChange={e => setSelectedPatient({...selectedPatient, genero: e.target.value})}
+              list="genero-options"
             />
+            <datalist id="genero-options">
+              {generoOptions.map((option, index) => (
+                <option key={index} value={option} />
+              ))}
+            </datalist>
           </div>
 
           {/* Edad */}
           <div>
-            <Label>Edad</Label>
+            <Label htmlFor="edad">Edad</Label>
             <Input 
+              id="edad"
+              name="edad"
               value={selectedPatient.edad || ''}
-              onChange={e => setSelectedPatient({...selectedPatient, edad: e.target.value})}
               type="number"
             />
           </div>
 
           {/* Ocupación */}
           <div>
-            <Label>Ocupación</Label>
+            <Label htmlFor="ocupacion">Ocupación</Label>
             <Input 
+              id="ocupacion"
+              name="ocupacion"
               value={selectedPatient.ocupacion || ''}
               onChange={e => setSelectedPatient({...selectedPatient, ocupacion: e.target.value})}
             />
@@ -119,8 +157,10 @@ export const EditarRegistro = () => {
 
           {/* Teléfono */}
           <div>
-            <Label>Teléfono</Label>
+            <Label htmlFor="telefono">Teléfono</Label>
             <Input 
+              id="telefono"
+              name="telefono"
               value={selectedPatient.telefono || ''}
               onChange={e => setSelectedPatient({...selectedPatient, telefono: e.target.value})}
               type="tel"
@@ -129,8 +169,10 @@ export const EditarRegistro = () => {
 
           {/* Email */}
           <div>
-            <Label>Email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input 
+              id="email"
+              name="email"
               value={selectedPatient.email || ''}
               onChange={e => setSelectedPatient({...selectedPatient, email: e.target.value})}
               type="email"
@@ -139,8 +181,10 @@ export const EditarRegistro = () => {
 
           {/* Antecedentes */}
           <div>
-            <Label>Antecedentes</Label>
+            <Label htmlFor="antecedentes">Antecedentes</Label>
             <Input 
+              id="antecedentes"
+              name="antecedentes"
               value={selectedPatient.antecedentes || ''}
               onChange={e => setSelectedPatient({...selectedPatient, antecedentes: e.target.value})}
             />

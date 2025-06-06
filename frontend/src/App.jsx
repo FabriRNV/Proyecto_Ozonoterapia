@@ -25,6 +25,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/auth/google/callback" element={<Login />} />
       <Route
         path="/Menu"
         element={
@@ -38,7 +39,7 @@ export default function App() {
           <Route index element={<ListaRegistro />} />
           <Route path="historial" element={<ListaRegistro />} />
           <Route path="nuevoPaciente" element={<NuevoRegistro />} />
-          <Route path='editarRegistro/:id' element={<EditarRegistro />} />
+          <Route path="editarRegistro/:id" element={<EditarRegistro />} />
         </Route>
         <Route path="citas" element={<Cita />}>
           <Route index element={<ListaCita />} />

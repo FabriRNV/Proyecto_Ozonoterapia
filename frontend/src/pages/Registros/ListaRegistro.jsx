@@ -19,13 +19,8 @@ export const ListaRegistro = () => {
     { name: 'Teléfono', selector: row => row.telefono },
     { name: 'Email', selector: row => row.email },
     { name: 'Antecedentes', selector: row => row.antecedentes },
-    { name: 'Editar', selector: row => <Button onClick={async () => {
-      try {
-        const paciente = await ServicioRegistro.getId_paciente(row.id);
-        navigate(`/pacientes/editarRegistro/${paciente.id}`);
-      } catch (error) {
-        console.error('Error al obtener el paciente:', error);
-      }
+    { name: 'Editar', selector: row => <Button onClick={() => {
+      navigate(`/Menu/pacientes/editarRegistro/${row.id}`);
     }}>Editar</Button>},
     {
       name: "Eliminar", selector: row => (<Button onClick={() => handleDelete(row)}>Eliminar</Button>)
@@ -35,10 +30,9 @@ export const ListaRegistro = () => {
   const getItems = async () => {
     try {
       const response = await ServicioRegistro.get_paciente();  
-      console.log(response);  
       setData(response);  
     } catch (error) {
-      console.error(error);  
+      console.error('Error al obtener los pacientes:', error);  
     }
   };
 

@@ -122,12 +122,20 @@ async def get_current_user(
 @router.post("/register", response_model=Token)
 async def register(user: UserCreate, db: Session = Depends(get_db)):
     try:
-        # Check if user already exists
+        # Check if email already exists
         db_user = db.query(User).filter(User.email == user.email).first()
         if db_user:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Email already registered",
+            )
+
+        # Check if username already exists
+        db_user = db.query(User).filter(User.username == user.username).first()
+        if db_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Ya existe un usuario con ese nombre",
             )
 
         # Create new user
@@ -161,18 +169,18 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
     try:
-        user = db.query(User).filter(User.email == form_data.username).first()
+        user = db.query(User).filter(User.username == form_data.username).first()
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Incorrect email or password",
+                detail="Contraseña o usuario incorrecto",
                 headers={"WWW-Authenticate": "Bearer"},
             )
 
         if not verify_password(form_data.password, user.hashed_password):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Incorrect email or password",
+                detail="Contraseña o usuario incorrecto",
                 headers={"WWW-Authenticate": "Bearer"},
             )
 
