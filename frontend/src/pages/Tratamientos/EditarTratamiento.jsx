@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react' // Import React hooks for managing state and side effects
 import { Button, Card, Input, Label } from '../../components/ui' // Import UI components
-import ServicioRegistro from '../../services/ServicioRegistro' // Import service to handle API calls for items
+import ServicioTratamiento from '../../services/ServicioTratamiento' // Import service to handle API calls for items
 import { useParams,useNavigate } from 'react-router-dom'
 import { useAgeCalculator } from '../../hooks/useAgeCalculator'
 
 
-export const EditarRegistro = () => {
-  const [selectedPatient, setSelectedPatient] = useState({
+export const EditarTratamiento = () => {
+  const [selectedTratamiento, setSelectedTratamiento] = useState({
     nombre: "",
     fecha_nacimiento: "",
     estado_civil: "",
@@ -22,41 +22,38 @@ export const EditarRegistro = () => {
   const navigate = useNavigate()
   const { handleBirthDateChange } = useAgeCalculator()
   
-  // Opciones para los combobox
-  const estadoCivilOptions = ["Soltero", "Casado", "Separado", "Divorciado", "Viudo"];
-  const procedenciaOptions = ["Cochabamba", "La Paz", "Santa Cruz", "Oruro", "Potosi", "Beni", "Pando", "Chuquisaca", "Tarija"];
-  const generoOptions = ["Masculino", "Femenino"];
+
   
-  const getPatient = async(id) => {
+  const getTratamiento = async(id) => {
     try {
-      const response = await ServicioRegistro.get_paciente();
-      const patient = response.find(p => p.id === parseInt(id));
-      if (patient) {
-        setSelectedPatient(patient);
+      const response = await ServicioTratamiento.get_tratamiento();
+      const tratamiento = response.find(p => p.id === parseInt(id));
+      if (tratamiento) {
+        setSelectedTratamiento(tratamiento);
       }
     } catch (error) {
-      console.error('Error obteniendo los datos del paciente:', error);
+      console.error('Error obteniendo los datos de los tratamientos:', error);
     }
   };
  
   useEffect(() => {
     if (params.id) {
-      getPatient(params.id).catch(err => console.error(err));
+      getTratamiento(params.id).catch(err => console.error(err));
     }
   }, [params.id]);
 
   const handleSubmit = async(event) => {
     event.preventDefault(); 
     try {
-      await ServicioRegistro.update_paciente(selectedPatient);
-      navigate("/Menu/pacientes/historial");
+      await ServicioTratamiento.update_tratamiento(selectedTratamiento);
+      navigate("/Menu/tratamientos/listaTratamientos");
     } catch (error) {
-      console.error('Error al actualizar paciente', error);
+      console.error('Error al actualizar tratamiento', error);
     }
   }
 
   return (
-    <Card titulo={"Editar Paciente"}> {/* Card component to display the form */}
+    <Card titulo={"Editar Tratamiento"}> 
       <form onSubmit={handleSubmit} className='mt-2 p-6 md:p-8'> 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Nombre */}
@@ -65,8 +62,8 @@ export const EditarRegistro = () => {
             <Input 
               id="nombre"
               name="nombre"
-              value={selectedPatient.nombre || ''} 
-              onChange={e => setSelectedPatient({...selectedPatient, nombre: e.target.value})}
+              value={selectedTratamiento.nombre || ''} 
+              onChange={e => setSelectedTratamiento({...selectedTratamiento, nombre: e.target.value})}
             />
           </div>
           

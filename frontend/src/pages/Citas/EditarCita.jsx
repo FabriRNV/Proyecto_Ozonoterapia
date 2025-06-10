@@ -37,7 +37,7 @@ export const EditarCita = () => {
     event.preventDefault(); 
     try {
       await ServicioCita.update_cita(selectedCita);
-      navigate('/citas/listaCitas');
+      navigate("/Menu/citas/listaCitas");
     } catch (error) {
       console.error('Error al actualizar cita:', error);
     }
@@ -49,8 +49,10 @@ export const EditarCita = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Paciente */}
           <div>
-            <Label>Paciente</Label>
+            <Label htmlFor="paciente">Paciente</Label>
             <Input 
+              id="paciente"
+              name="paciente"
               value={selectedCita.paciente || ''} 
               onChange={e => setSelectedCita({...selectedCita, paciente: e.target.value})}
             />
@@ -58,8 +60,10 @@ export const EditarCita = () => {
           
           {/* Fuente */}
           <div>
-            <Label>Fuente</Label>
+            <Label htmlFor="fuente">Fuente</Label>
             <Input 
+              id="fuente"
+              name="fuente"
               value={selectedCita.fuente || ''}
               onChange={e => setSelectedCita({...selectedCita, fuente: e.target.value})}
             />
@@ -67,8 +71,10 @@ export const EditarCita = () => {
 
           {/* Fecha */}
           <div>
-            <Label>Fecha</Label>
+            <Label htmlFor="fecha">Fecha</Label>
             <Input 
+              id="fecha"
+              name="fecha"
               value={selectedCita.fecha || ''}
               onChange={e => setSelectedCita({...selectedCita, fecha: e.target.value})}
               type="date"
@@ -77,8 +83,10 @@ export const EditarCita = () => {
 
           {/* Hora */}
           <div>
-            <Label>Hora</Label>
+            <Label htmlFor="hora">Hora</Label>
             <Input 
+              id="hora"
+              name="hora"
               value={selectedCita.hora || ''}
               onChange={e => setSelectedCita({...selectedCita, hora: e.target.value})}
               type="time"
@@ -87,8 +95,10 @@ export const EditarCita = () => {
 
           {/* Motivo */}
           <div>
-            <Label>Motivo</Label>
+            <Label htmlFor="motivo">Motivo</Label>
             <Input 
+              id="motivo"
+              name="motivo"
               value={selectedCita.motivo || ''}
               onChange={e => setSelectedCita({...selectedCita, motivo: e.target.value})}
             />
@@ -96,8 +106,10 @@ export const EditarCita = () => {
 
           {/* Enfermedad */}
           <div>
-            <Label>Enfermedad</Label>
+            <Label htmlFor="enfermedad">Enfermedad</Label>
             <Input 
+              id="enfermedad"
+              name="enfermedad"
               value={selectedCita.enfermedad || ''}
               onChange={e => setSelectedCita({...selectedCita, enfermedad: e.target.value})}
             />

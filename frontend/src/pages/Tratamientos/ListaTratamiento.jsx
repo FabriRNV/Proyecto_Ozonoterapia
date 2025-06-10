@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';  
 import DataTable from 'react-data-table-component';  
 import { Card, Button } from '../../components/ui';  
-import ServicioRegistro from '../../services/ServicioRegistro';
+import ServicioTratamiento from '../../services/ServicioTratamiento';
 import { useNavigate } from 'react-router-dom';
 
-export const ListaRegistro = () => {
+export const ListaTratamiento = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export const ListaRegistro = () => {
     { name: 'Email', selector: row => row.email },
     { name: 'Antecedentes', selector: row => row.antecedentes },
     { name: 'Editar', selector: row => <Button onClick={() => {
-      navigate(`/Menu/pacientes/editarRegistro/${row.id}`);
+      navigate(`/Menu/tratamientos/editarTratamiento/${row.id}`);
     }}>Editar</Button>},
     {
       name: "Eliminar", selector: row => (<Button onClick={() => handleDelete(row)}>Eliminar</Button>)
@@ -29,10 +29,10 @@ export const ListaRegistro = () => {
 
   const getItems = async () => {
     try {
-      const response = await ServicioRegistro.get_paciente();  
+      const response = await ServicioTratamiento.get_tratamiento();  
       setData(response);  
     } catch (error) {
-      console.error('Error al obtener los pacientes:', error);  
+      console.error('Error al obtener los tratamientos:', error);  
     }
   };
 
@@ -40,21 +40,21 @@ export const ListaRegistro = () => {
     getItems();  
   }, []);  
 
-  const handleDelete = async(paciente) => {
-    const {id, nombre} = paciente
+  const handleDelete = async(tratamiento) => {
+    const {id, nombre} = tratamiento
     if (window.confirm(`¿Quieres eliminar a ${nombre}?`)) {
       try {
-        await ServicioRegistro.eliminate_paciente(id);
-        const eliminatedpatient = data.filter(paciente => paciente.id !== id);
-        setData(eliminatedpatient);
+        await ServicioTratamiento.eliminate_tratamiento(id);
+        const eliminatedtratamiento = data.filter(tratamiento => tratamiento.id !== id);
+        setData(eliminatedtratamiento);
       } catch (error) {
-        console.error('Error al eliminar la persona:', error);
+        console.error('Error al eliminar el tratamiento:', error);
       }
     }
   }
 
   return (
-    <Card titulo={"Listado de Pacientes"}>
+    <Card titulo={"Listado de Tratamientos"}>
       <DataTable columns={columns} data={data} theme="solarized" />
     </Card>
   );
