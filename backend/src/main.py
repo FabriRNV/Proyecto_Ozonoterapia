@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from src.routers.patient_router import patient_route
 from src.routers.cita_router import cita_route
+from src.routers.ai_router import ai_route
 from src.routers import auth
 from src.utils.database import Base, engine
 from dotenv import load_dotenv
@@ -47,8 +48,9 @@ templates = Jinja2Templates(directory="../dist")
 app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 
 # Include routers
-app.include_router(patient_route, prefix="/api/pacientes")
-app.include_router(cita_route, prefix="/api/citas")
+app.include_router(patient_route, prefix="/api/pacientes", tags=["pacientes"])
+app.include_router(cita_route, prefix="/api/citas", tags=["citas"])
+app.include_router(ai_route, prefix="/api/ai", tags=["ai"])
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 
 

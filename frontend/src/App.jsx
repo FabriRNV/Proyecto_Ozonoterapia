@@ -20,6 +20,11 @@ import { ListaCita } from "./pages/Citas/ListaCita";
 import { NuevaCita } from "./pages/Citas/NuevaCita";
 import { EditarCita } from "./pages/Citas/EditarCita";
 
+import { Tratamiento } from "./pages/Tratamientos/Tratamiento";
+import { ListaTratamiento } from "./pages/Tratamientos/ListaTratamiento";
+import { NuevoTratamiento } from "./pages/Tratamientos/NuevoTratamiento";
+import { EditarTratamiento } from "./pages/Tratamientos/EditarTratamiento";
+
 export default function App() {
   return (
     <Routes>
@@ -46,6 +51,12 @@ export default function App() {
           <Route path="listaCitas" element={<ListaCita />} />
           <Route path="nuevaCita" element={<NuevaCita />} />
           <Route path='editarCita/:id' element={<EditarCita/>} />
+        </Route>
+        <Route path="tratamientos" element={<Tratamiento />}>
+          <Route index element={<ListaTratamiento />} />
+          <Route path="listaTratamientos" element={<ListaTratamiento />} />
+          <Route path="nuevoTratamiento" element={<NuevoTratamiento />} />
+          <Route path='editarTratamiento/:id' element={<EditarTratamiento/>} />
         </Route>
       </Route>
     </Routes>

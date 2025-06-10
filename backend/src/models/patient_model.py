@@ -4,7 +4,6 @@ from sqlalchemy import Column, Integer, String, Date, JSON
 from src.utils.database import Base
 
 
-# 🧱 Modelo ORM (híbrido)
 class PatientModel(Base):
     __tablename__ = "pacientes"
 
@@ -21,14 +20,12 @@ class PatientModel(Base):
     antecedentes = Column(String, nullable=True)
 
 
-
-# 📦 Pydantic Schemas
 class CreatePatient(BaseModel):
     nombre: str
     fecha_nacimiento: date
     estado_civil: str | None = None
     procedencia: str | None = None
-    genero: str  # "male", "female", "other", "unknown"
+    genero: str  
     edad: int
     ocupacion: str | None = None
     telefono: int | None = None
