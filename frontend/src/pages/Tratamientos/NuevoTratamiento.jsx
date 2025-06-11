@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Card } from '../../components/ui';
 import FormTratamiento from './FormTratamiento';
 import ServicioTratamiento from '../../services/ServicioTratamiento';
@@ -8,16 +8,15 @@ export const NuevoTratamiento = () => {
   // useState hook to manage the patient data
   const [inputsDisabled, setInputsDisabled] = useState(false);
   const [newData, setNewData] = useState({
-    nombre: "",
-    fecha_nacimiento: "",
-    estado_civil: "",
-    procedencia: "",
-    genero: "",
-    edad: "",
-    ocupacion: "",
-    telefono: "",
-    email: "",
-    antecedentes: ""
+    paciente_id: "",
+    doctor_id: "",
+    cita_id: "",
+    tipo_tratamiento: "",
+    dosis: "",
+    fecha_inicio: "",
+    fecha_fin: "",
+    notas_tratamiento: "",
+    resultados_observados: ""
   });
 
   const añadirNuevoTratamiento = async () => {
@@ -26,21 +25,20 @@ export const NuevoTratamiento = () => {
       await ServicioTratamiento.create_tratamiento(tratamientoData);
       alert("Nuevo tratamiento creado con éxito");
       setNewData({
-        nombre: "",
-        fecha_nacimiento: "",
-        estado_civil: "",
-        procedencia: "",
-        genero: "",
-        edad: "",
-        ocupacion: "",
-        telefono: "",
-        email: "",
-        antecedentes: ""
+        paciente_id: "",
+        doctor_id: "",
+        cita_id: "",
+        tipo_tratamiento: "",
+        dosis: "",
+        fecha_inicio: "",
+        fecha_fin: "",
+        notas_tratamiento: "",
+        resultados_observados: ""
       });
       setInputsDisabled(false);
     } catch (error) {
       console.error("Error al crear tratamiento:", error);
-      alert("Fallo al crear nuevo tratamiento. por favor intente de nuevo.");
+      alert("Fallo al crear nuevo tratamiento. Por favor intente de nuevo.");
     }
   };
 

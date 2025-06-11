@@ -14,12 +14,12 @@ import Tabs from '../../components/Tabs/tabs';
 // Importa el componente `Tabs`, que se utiliza para la navegación por pestañas.
 
 /**
- * Componente Entrada
- * Este componente actúa como un contenedor para la página de "Entradas".
+ * Componente Doctor
+ * Este componente actúa como un contenedor para la página de "Doctores".
  * Administra el estado de carga y renderiza el contenido correspondiente
  * según el estado actual.
  */
-export function Tratamiento() {  
+export function Doctor() {  
   const [loading, setLoading] = useState(false); 
   // Variable de estado `loading` para manejar el estado de carga.
 
@@ -38,15 +38,12 @@ export function Tratamiento() {
   return (
     
     <div>
-      {/* Componente Tabs que recibe los elementos de navegación y una función para simular la carga */}
       <Tabs 
-        itemsNav={ItemsNav[3]} // Pasa el tercer elemento de navegación (Tratamientos) como prop.
-        nameTitle={'tratamientos'} // Título de la pestaña.
+        itemsNav={ItemsNav[1]} 
+        nameTitle={'doctores'} // Título de la pestaña.
         simulateLoading={() => { simulateLoading() }} 
-        // Pasa la función simulateLoading como prop para que pueda ser llamada desde Tabs.
       />          
 
-      {/* Renderizado condicional basado en el estado de carga */}
       {loading ? (
         // Si `loading` es verdadero, muestra el componente Loader.
         <div className="flex items-center justify-center pt-28">

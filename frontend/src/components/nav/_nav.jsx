@@ -31,6 +31,23 @@ export const ItemsNav = [
     ],
   },
   {
+    name: "Doctores",
+    icon: <MdGroupAdd />,
+    to: "doctores",
+    items: [
+      {
+        name: "Lista Doctores",
+        to: "listaDoctores",
+        icon: <MdSupervisedUserCircle className='w-4 h-4'/>
+      },
+      {
+        name: "Agregar Doctor",
+        to: "nuevoDoctor",
+        icon: <MdHistoryEdu className='w-4 h-4'/>
+      },
+    ],
+  },
+  {
     name: "Citas Médicas",
     icon: <MdAssignmentAdd />,
     to: "citas",
@@ -43,6 +60,11 @@ export const ItemsNav = [
       {
         name: "Agregar Cita",
         to: "nuevaCita",
+        icon: <MdAssignmentTurnedIn className='w-4 h-4'/>
+      },
+      {
+        name: "Calendario Citas",
+        to: "calendario",
         icon: <MdAssignmentTurnedIn className='w-4 h-4'/>
       },
     ],

@@ -1,10 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from src.models.cita_model import CreateCita, CitaOut, CitaModel
+from src.models.patient_model import PatientModel
+from src.models.doctor_model import DoctorModel
 from src.utils.database import SessionLocal
 
 cita_route = APIRouter()
-
 
 
 def get_db():
@@ -17,8 +18,21 @@ def get_db():
 
 @cita_route.post("/", response_model=CitaOut)
 def create_cita(cita: CreateCita, db: Session = Depends(get_db)):
+    # Verificar que el paciente existe
+    paciente = (
+        db.query(PatientModel).filter(PatientModel.id == cita.paciente_id).first()
+    )
+    if not paciente:
+        raise HTTPException(status_code=404, detail="Paciente no encontrado")
+
+    # Verificar que el doctor existe
+    doctor = db.query(DoctorModel).filter(DoctorModel.id == cita.doctor_id).first()
+    if not doctor:
+        raise HTTPException(status_code=404, detail="Doctor no encontrado")
+
     cita_model = CitaModel(
-        paciente=cita.paciente,
+        paciente_id=cita.paciente_id,
+        doctor_id=cita.doctor_id,
         fecha=cita.fecha,
         hora=cita.hora,
         motivo=cita.motivo,
@@ -54,6 +68,18 @@ def update_cita(id_cita: int, cita: CreateCita, db: Session = Depends(get_db)):
     if not cita_model:
         raise HTTPException(status_code=404, detail="Cita no encontrada")
 
+    # Verificar que el paciente existe
+    paciente = (
+        db.query(PatientModel).filter(PatientModel.id == cita.paciente_id).first()
+    )
+    if not paciente:
+        raise HTTPException(status_code=404, detail="Paciente no encontrado")
+
+    # Verificar que el doctor existe
+    doctor = db.query(DoctorModel).filter(DoctorModel.id == cita.doctor_id).first()
+    if not doctor:
+        raise HTTPException(status_code=404, detail="Doctor no encontrado")
+
     for field, value in cita.dict().items():
         setattr(cita_model, field, value)
     db.commit()
@@ -77,4 +103,16 @@ def delete_cita(id_cita: int, db: Session = Depends(get_db)):
 @cita_route.get("/buscar/", response_model=list[CitaOut])
 def search_citas(paciente: str, db: Session = Depends(get_db)):
     citas = db.query(CitaModel).filter(CitaModel.paciente.ilike(f"%{paciente}%")).all()
+    return citas
+
+
+@cita_route.get("/paciente/{paciente_id}", response_model=list[CitaOut])
+def get_citas_by_paciente(paciente_id: int, db: Session = Depends(get_db)):
+    citas = db.query(CitaModel).filter(CitaModel.paciente_id == paciente_id).all()
+    return citas
+
+
+@cita_route.get("/doctor/{doctor_id}", response_model=list[CitaOut])
+def get_citas_by_doctor(doctor_id: int, db: Session = Depends(get_db)):
+    citas = db.query(CitaModel).filter(CitaModel.doctor_id == doctor_id).all()
     return citas

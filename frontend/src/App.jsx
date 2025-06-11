@@ -15,10 +15,16 @@ import { ListaRegistro } from "./pages/Registros/ListaRegistro";
 import { NuevoRegistro } from "./pages/Registros/NuevoRegistro";
 import { EditarRegistro } from "./pages/Registros/EditarRegistro";
 
+import { Doctor } from "./pages/Doctores/Doctor";
+import { ListaDoctor} from "./pages/Doctores/ListaDoctor";
+import { NuevoDoctor } from "./pages/Doctores/NuevoDoctor";
+import { EditarDoctor } from "./pages/Doctores/EditarDoctor";
+
 import { Cita } from "./pages/Citas/Cita";
 import { ListaCita } from "./pages/Citas/ListaCita";
 import { NuevaCita } from "./pages/Citas/NuevaCita";
 import { EditarCita } from "./pages/Citas/EditarCita";
+import { CalendarioCitas } from "./pages/Citas/CalendarioCitas";
 
 import { Tratamiento } from "./pages/Tratamientos/Tratamiento";
 import { ListaTratamiento } from "./pages/Tratamientos/ListaTratamiento";
@@ -46,11 +52,18 @@ export default function App() {
           <Route path="nuevoPaciente" element={<NuevoRegistro />} />
           <Route path="editarRegistro/:id" element={<EditarRegistro />} />
         </Route>
+        <Route path="doctores" element={<Doctor />}>
+          <Route index element={<ListaDoctor />} />
+          <Route path="listaDoctores" element={<ListaDoctor />} />
+          <Route path="nuevoDoctor" element={<NuevoDoctor />} />
+          <Route path="editarDoctor/:id" element={<EditarDoctor />} />
+        </Route>
         <Route path="citas" element={<Cita />}>
           <Route index element={<ListaCita />} />
           <Route path="listaCitas" element={<ListaCita />} />
           <Route path="nuevaCita" element={<NuevaCita />} />
           <Route path='editarCita/:id' element={<EditarCita/>} />
+          <Route path='calendario' element={<CalendarioCitas/>} />
         </Route>
         <Route path="tratamientos" element={<Tratamiento />}>
           <Route index element={<ListaTratamiento />} />

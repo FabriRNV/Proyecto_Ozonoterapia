@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../utils/axios';
 import Logo from '../../assets/img/LogoPrueba.png';
+
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
@@ -9,7 +10,8 @@ const Login = () => {
     username: '',
     password: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    doctor_id: null
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,14 +42,10 @@ const Login = () => {
     
     try {
       if (isLogin) {
-        const loginFormData = new URLSearchParams();
-        loginFormData.append('username', formData.username);
-        loginFormData.append('password', formData.password);
 
-        const response = await api.post('/api/auth/token', loginFormData, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+        const response = await api.post('/api/auth/login', {
+          username: formData.username,
+          password: formData.password
         });
 
         if (response.status === 200) {
@@ -55,15 +53,21 @@ const Login = () => {
           navigate('/Menu', { replace: true });
         }
       } else {
+        // Registro con el nuevo formato
         const response = await api.post('/api/auth/register', {
           email: formData.email,
           username: formData.username,
           phone_number: formData.phoneNumber,
-          password: formData.password
+          password: formData.password,
+          doctor_id: formData.doctor_id
         });
 
         if (response.status === 200) {
           localStorage.setItem('token', response.data.access_token);
+          // Guardar información del usuario si es necesario
+          if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+          }
           navigate('/Menu', { replace: true });
         }
       }

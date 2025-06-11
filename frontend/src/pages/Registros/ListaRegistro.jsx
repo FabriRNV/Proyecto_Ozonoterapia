@@ -55,7 +55,12 @@ export const ListaRegistro = () => {
 
   return (
     <Card titulo={"Listado de Pacientes"}>
-      <DataTable columns={columns} data={data} theme="solarized" />
+      <DataTable columns={columns} data={data}
+      theme="solarized"
+      pagination
+      highlightOnHover
+      responsive
+      />
     </Card>
   );
 };
