@@ -32,7 +32,7 @@ export const ListaTratamiento = () => {
 
         const doctoresMap = {};
         doctoresData.forEach(doctor => {
-          doctoresMap[doctor.id] = `Dr. ${doctor.nombre} ${doctor.apellido}`;
+          doctoresMap[doctor.id] = `Dr. ${doctor.nombre}`;
         });
 
         const citasMap = {};

@@ -46,13 +46,13 @@ const FormCita = ({ newData, setNewData, editData, isDisabled }) => {
               name="paciente_id"
               value={newData.paciente_id || ''}
               onChange={(e) => setNewData({ ...newData, paciente_id: parseInt(e.target.value) })}
-              className="w-full px-3 py-2 border  bg-white  text-black border border-primario rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-3 py-2  bg-white  text-black border-primario rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               disabled={isDisabled}
             >
               <option value="">Seleccione un paciente</option>
               {pacientes.map((paciente) => (
                 <option key={paciente.id} value={paciente.id}>
-                  {paciente.nombre} {paciente.apellido}
+                  {paciente.nombre} 
                 </option>
               ))}
             </select>
@@ -73,7 +73,7 @@ const FormCita = ({ newData, setNewData, editData, isDisabled }) => {
               <option value="">Seleccione un doctor</option>
               {doctores.map((doctor) => (
                 <option placeholder="Enfermedad actual" key={doctor.id} value={doctor.id}>
-                  Dr. {doctor.nombre} {doctor.apellido} - {doctor.especialidad}
+                  Dr. {doctor.nombre} - {doctor.especialidad}
                 </option>
               ))}
             </select>

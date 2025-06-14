@@ -8,7 +8,6 @@ export const NuevoDoctor = () => {
   const [inputsDisabled, setInputsDisabled] = useState(false);
   const [newData, setNewData] = useState({
     nombre: "",
-    apellido: "",
     especialidad: "",
     telefono: "",
     email: "",
@@ -22,7 +21,6 @@ export const NuevoDoctor = () => {
       alert("Nuevo Doctor creado con éxito");
       setNewData({
         nombre: "",
-        apellido: "",
         especialidad: "",
         telefono: "",
         email: "",

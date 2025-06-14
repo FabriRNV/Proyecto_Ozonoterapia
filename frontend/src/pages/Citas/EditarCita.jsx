@@ -81,7 +81,7 @@ export const EditarCita = () => {
               <option value="">Seleccione un paciente</option>
               {pacientes.map((paciente) => (
                 <option key={paciente.id} value={paciente.id}>
-                  {paciente.nombre} {paciente.apellido}
+                  {paciente.nombre} 
                 </option>
               ))}
             </select>
@@ -100,7 +100,7 @@ export const EditarCita = () => {
               <option value="">Seleccione un doctor</option>
               {doctores.map((doctor) => (
                 <option key={doctor.id} value={doctor.id}>
-                  Dr. {doctor.nombre} {doctor.apellido} - {doctor.especialidad}
+                  Dr. {doctor.nombre} - {doctor.especialidad}
                 </option>
               ))}
             </select>

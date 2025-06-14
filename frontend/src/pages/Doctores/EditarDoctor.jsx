@@ -8,8 +8,7 @@ export const EditarDoctor = () => {
   const [inputsDisabled, setInputsDisabled] = useState(false);
   const [newData, setNewData] = useState({
     nombre: "",
-    apellido: "",
- EditarDocdad: "",
+    EditarDocdad: "",
     telefono: "",
     email: "",
     licencia_medica: ""

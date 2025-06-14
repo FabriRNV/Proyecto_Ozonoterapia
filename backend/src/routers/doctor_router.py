@@ -18,7 +18,6 @@ def get_db():
 def create_doctor(doctor: CreateDoctor, db: Session = Depends(get_db)):
     doctor_model = DoctorModel(
         nombre=doctor.nombre,
-        apellido=doctor.apellido,
         especialidad=doctor.especialidad,
         telefono=doctor.telefono,
         email=doctor.email,
@@ -71,11 +70,6 @@ def delete_doctor(id_doctor: int, db: Session = Depends(get_db)):
 @doctor_route.get("/buscar/", response_model=list[DoctorOut])
 def search_doctors(nombre: str, db: Session = Depends(get_db)):
     doctors = (
-        db.query(DoctorModel)
-        .filter(
-            DoctorModel.nombre.ilike(f"%{nombre}%")
-            | DoctorModel.apellido.ilike(f"%{nombre}%")
-        )
-        .all()
+        db.query(DoctorModel).filter(DoctorModel.nombre.ilike(f"%{nombre}%")).all()
     )
     return doctors

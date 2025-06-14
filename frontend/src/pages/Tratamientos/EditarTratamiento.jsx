@@ -94,7 +94,7 @@ export const EditarTratamiento = () => {
               <option value="">Seleccione un doctor</option>
               {doctores.map((doctor) => (
                 <option key={doctor.id} value={doctor.id}>
-                  Dr. {doctor.nombre} {doctor.apellido} - {doctor.especialidad}
+                  Dr. {doctor.nombre} - {doctor.especialidad}
                 </option>
               ))}
             </select>

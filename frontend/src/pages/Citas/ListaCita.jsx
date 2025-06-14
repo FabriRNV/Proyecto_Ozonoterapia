@@ -29,7 +29,7 @@ export const ListaCita = () => {
 
         const doctoresMap = {};
         doctoresData.forEach(doctor => {
-          doctoresMap[doctor.id] = `Dr. ${doctor.nombre} ${doctor.apellido}`;
+          doctoresMap[doctor.id] = `Dr. ${doctor.nombre}`;
         });
 
         setPacientes(pacientesMap);

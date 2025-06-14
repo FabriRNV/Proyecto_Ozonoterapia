@@ -4,6 +4,7 @@ from src.models.cita_model import CreateCita, CitaOut, CitaModel
 from src.models.patient_model import PatientModel
 from src.models.doctor_model import DoctorModel
 from src.utils.database import SessionLocal
+from src.utils.email_service import email_service
 
 cita_route = APIRouter()
 
@@ -17,7 +18,7 @@ def get_db():
 
 
 @cita_route.post("/", response_model=CitaOut)
-def create_cita(cita: CreateCita, db: Session = Depends(get_db)):
+async def create_cita(cita: CreateCita, db: Session = Depends(get_db)):
     # Verificar que el paciente existe
     paciente = (
         db.query(PatientModel).filter(PatientModel.id == cita.paciente_id).first()
@@ -42,6 +43,27 @@ def create_cita(cita: CreateCita, db: Session = Depends(get_db)):
     db.add(cita_model)
     db.commit()
     db.refresh(cita_model)
+
+    # Preparar datos para el correo
+    cita_data = {
+        "paciente_nombre": f"{paciente.nombre}",
+        "doctor_nombre": f"Dr. {doctor.nombre}",
+        "fecha": str(cita.fecha),
+        "hora": str(cita.hora),
+        "motivo": cita.motivo,
+    }
+
+    # Enviar notificaciones por correo
+    try:
+        await email_service.send_cita_notification(
+            doctor_email=doctor.email,
+            paciente_email=paciente.email,
+            cita_data=cita_data,
+        )
+    except Exception as e:
+        print(f"Error al enviar correos: {str(e)}")
+        # No lanzamos excepción para no interrumpir la creación de la cita
+
     return cita_model
 
 
