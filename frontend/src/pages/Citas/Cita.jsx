@@ -28,7 +28,7 @@ export function Cita() {
     
     <div>
       <Tabs 
-        itemsNav={ItemsNav[1]} 
+        itemsNav={ItemsNav[2]} 
         nameTitle={'citas'} 
         simulateLoading={() => { simulateLoading() }} 
 
