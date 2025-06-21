@@ -8,7 +8,8 @@ export const NuevaCita = () => {
   // useState hook to manage the patient data
   const [inputsDisabled, setInputsDisabled] = useState(false);
   const [newData, setNewData] = useState({
-    paciente: "",
+    paciente_id: "",
+    doctor_id: "",
     fecha: "",
     hora: "",
     motivo: "",
@@ -22,7 +23,8 @@ export const NuevaCita = () => {
       await ServicioCita.create_cita(citaData);
       alert("Nueva cita creada con éxito");
       setNewData({
-        paciente: "",
+        paciente_id: "",
+        doctor_id: "",
         fecha: "",
         hora: "",
         motivo: "",

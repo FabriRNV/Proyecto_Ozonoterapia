@@ -1,21 +1,42 @@
 import { useEffect, useState } from 'react' // Import React hooks for managing state and side effects
 import { Button, Card, Input, Label } from '../../components/ui' // Import UI components
 import ServicioCita from '../../services/ServicioCita' // Import service to handle API calls for items
+import ServicioRegistro from '../../services/ServicioRegistro'
+import ServicioDoctor from '../../services/ServicioDoctor'
 import { useParams,useNavigate } from 'react-router-dom'
 
 
 export const EditarCita = () => {
   const [selectedCita, setSelectedCita] = useState({
-    paciente: "",
+    paciente_id: "",
+    doctor_id: "",
     fecha: "",
     hora: "",
     motivo: "",
     enfermedad: "",
     fuente: ""
   })
+  const [pacientes, setPacientes] = useState([]);
+  const [doctores, setDoctores] = useState([]);
   const params = useParams()
   const navigate = useNavigate()
   
+  useEffect(() => {
+    const cargarDatos = async () => {
+      try {
+        const [pacientesData, doctoresData] = await Promise.all([
+          ServicioRegistro.get_paciente(),
+          ServicioDoctor.get_doctor()
+        ]);
+        setPacientes(pacientesData);
+        setDoctores(doctoresData);
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    };
+    cargarDatos();
+  }, []);
+
   const getCita = async(id) => {
     try {
       const cita = await ServicioCita.getId_cita(id);
@@ -49,24 +70,40 @@ export const EditarCita = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Paciente */}
           <div>
-            <Label htmlFor="paciente">Paciente</Label>
-            <Input 
-              id="paciente"
-              name="paciente"
-              value={selectedCita.paciente || ''} 
-              onChange={e => setSelectedCita({...selectedCita, paciente: e.target.value})}
-            />
+            <Label htmlFor="paciente_id">Paciente</Label>
+            <select
+              id="paciente_id"
+              name="paciente_id"
+              value={selectedCita.paciente_id || ''}
+              onChange={e => setSelectedCita({...selectedCita, paciente_id: parseInt(e.target.value)})}
+              className="w-full px-3 py-2 bg-white text-black border border-primario rounded-md shadow-sm focus:outline-none focus:ring-terciario focus:border-indigo-500"
+            >
+              <option value="">Seleccione un paciente</option>
+              {pacientes.map((paciente) => (
+                <option key={paciente.id} value={paciente.id}>
+                  {paciente.nombre} 
+                </option>
+              ))}
+            </select>
           </div>
           
-          {/* Fuente */}
+          {/* Doctor */}
           <div>
-            <Label htmlFor="fuente">Fuente</Label>
-            <Input 
-              id="fuente"
-              name="fuente"
-              value={selectedCita.fuente || ''}
-              onChange={e => setSelectedCita({...selectedCita, fuente: e.target.value})}
-            />
+            <Label htmlFor="doctor_id">Doctor</Label>
+            <select
+              id="doctor_id"
+              name="doctor_id"
+              value={selectedCita.doctor_id || ''}
+              onChange={e => setSelectedCita({...selectedCita, doctor_id: parseInt(e.target.value)})}
+              className="w-full px-3 py-2 bg-white text-black border border-primario rounded-md shadow-sm focus:outline-none focus:ring-terciario focus:border-indigo-500"
+            >
+              <option value="">Seleccione un doctor</option>
+              {doctores.map((doctor) => (
+                <option key={doctor.id} value={doctor.id}>
+                  Dr. {doctor.nombre} - {doctor.especialidad}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Fecha */}
@@ -115,6 +152,16 @@ export const EditarCita = () => {
             />
           </div>
 
+          {/* Fuente */}
+          <div>
+            <Label htmlFor="fuente">Fuente</Label>
+            <Input 
+              id="fuente"
+              name="fuente"
+              value={selectedCita.fuente || ''}
+              onChange={e => setSelectedCita({...selectedCita, fuente: e.target.value})}
+            />
+          </div>
         </div>
 
         <div className="mt-6">
