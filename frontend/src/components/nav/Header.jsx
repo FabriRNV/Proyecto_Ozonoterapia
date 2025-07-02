@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react'
 import {
   RiSearchLine,
@@ -15,6 +16,30 @@ import {
 // It accepts a `collapsed` prop to dynamically adjust its width based on whether the sidebar is collapsed or expanded.
 
 export function Header({ collapsed }) {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    let storedUsername = localStorage.getItem('username');
+    if (!storedUsername) {
+      // Compatibilidad con versiones anteriores
+      const userObj = localStorage.getItem('user');
+      if (userObj) {
+        try {
+          storedUsername = JSON.parse(userObj).username;
+        } catch {}
+      }
+    }
+    if (storedUsername) setUsername(storedUsername);
+  }, []);
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('access_token'); // Por si acaso
+    localStorage.removeItem('username');
+    localStorage.removeItem('user');
+    navigate('/login', { replace: true });
+  };
   return (
     // The header is positioned at the top of the screen (`fixed`), ensuring it remains visible while scrolling.
     // It dynamically adjusts its width depending on the `collapsed` prop to accommodate the sidebar's state.
@@ -34,9 +59,9 @@ export function Header({ collapsed }) {
 
         {/* User Profile Dropdown */}
         <Menu as="div">
-          <Menu.Button className='flex items-center gap-4 py-2 px-8 hover:bg-secundario hover:text-cuarto p-2 rounded-full transition-colors'>
+          <Menu.Button  className='flex items-center gap-4 py-2 px-8 hover:bg-secundario hover:text-cuarto p-2 rounded-full transition-colors'>
             <img src="../src/assets/img/freepik__icono_de_un_nuevo_usuario_en_un_sistema_de_me.png" className='w-8 h-8 object-cover rounded-full ring-2'/>
-            <span>Fabricio Romay</span>
+            <span >{username || "Usuario"}</span>
             <RiArrowDownSLine />
           </Menu.Button>
 
@@ -52,22 +77,22 @@ export function Header({ collapsed }) {
             {/* Profile dropdown content */}
             <Menu.Items as="section" className="absolute top-6 right-0 bg-secundario w-72 rounded-lg shadow-lg p-4">
               <div>
-                <h1 className='font-bold text-center'>Options</h1>
+                <h1 className='font-bold text-center'>Opciones</h1>
                 <hr className='my-2' />
-                {/* Account management and logout options */}
+                {/* Account management and logout options 
                 <Menu.Item>
                   <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-terciario text-cuarto transition-color'>
                     <RiSettings5Line />
                     <div>
-                      <h5>Manage Account</h5>
+                      <h5>Administrar cuenta</h5>
                     </div>
                   </a>
-                </Menu.Item>
+                </Menu.Item>*/}
                 <Menu.Item>
-                  <a href='#' className='flex items-center gap-4 rounded-lg hover:bg-terciario text-cuarto  transition-color'>
+                  <a href='#' onClick={handleLogout} className='flex items-center gap-4 rounded-lg hover:bg-terciario text-cuarto transition-color'>
                     <RiLogoutBoxRLine />
                     <div>
-                      <h5>Logout</h5>
+                      <h5>Salir</h5>
                     </div>
                   </a>
                 </Menu.Item>

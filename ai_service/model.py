@@ -67,7 +67,9 @@ class OzonoterapiaPredictor:
         return {k.strip().lower(): v for k, v in data.items()}
 
     def preprocess_data(self, data: Dict) -> Dict:
-        # Asegura que todos los features estén presentes y normaliza nombres
+        # Si data es un array o lista, conviértelo a dict usando self.feature_names
+        if isinstance(data, (list, np.ndarray)):
+            data = {f: v for f, v in zip(self.feature_names, data)}
         data = self._normalize_dict(data)
         processed = {}
         for f in self.feature_names:

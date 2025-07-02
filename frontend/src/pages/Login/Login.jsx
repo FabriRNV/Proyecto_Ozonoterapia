@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../utils/axios';
 import Logo from '../../assets/img/LogoPrueba.png';
+import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +14,7 @@ const Login = () => {
     phoneNumber: '',
     doctor_id: null
   });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -50,6 +52,7 @@ const Login = () => {
 
         if (response.status === 200) {
           localStorage.setItem('token', response.data.access_token);
+          localStorage.setItem('username', response.data.user.username);
           navigate('/Menu', { replace: true });
         }
       } else {
@@ -64,9 +67,8 @@ const Login = () => {
 
         if (response.status === 200) {
           localStorage.setItem('token', response.data.access_token);
-          // Guardar información del usuario si es necesario
           if (response.data.user) {
-            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('username', response.data.user.username);
           }
           navigate('/Menu', { replace: true });
         }
@@ -102,6 +104,7 @@ const Login = () => {
 
       if (response.status === 200) {
         localStorage.setItem('token', response.data.access_token);
+        localStorage.setItem('username', response.data.user.username);
         navigate('/Menu', { replace: true });
       }
     } catch (error) {
@@ -170,15 +173,25 @@ const Login = () => {
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-terciario text-primario bg-quinto"
             required
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-terciario text-primario bg-quinto"
-            required
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Contraseña"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-terciario text-primario bg-quinto pr-12"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-gray-500 focus:outline-none"
+              tabIndex={-1}
+            >
+              {showPassword ? <RiEyeLine /> : <RiEyeOffLine />}
+            </button>
+          </div>
           <button
             type="submit"
             className="w-full bg-terciario text-white py-2 rounded-lg hover:bg-cuarto transition-colors border-1 border-primario"
@@ -187,6 +200,7 @@ const Login = () => {
           </button>
         </form>
 
+        {/*
         <div className="mt-6">
           <button
             type="button"
@@ -201,6 +215,7 @@ const Login = () => {
             Continuar con Google
           </button>
         </div>
+        */}
       </div>
     </div>
   );

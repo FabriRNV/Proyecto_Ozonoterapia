@@ -5,29 +5,29 @@ Classification report:
                                                    precision    recall  f1-score   support
 
                                 Artropatía hombro       0.00      0.00      0.00         2
-                        Condropatía femoropatelar       0.75      0.75      0.75         4
+                        Condropatía femoropatelar       0.60      0.75      0.67         4
         Contracturas musculares cervical y lumbar       0.00      0.00      0.00         3
                  Dolor crónico en la fibromialgia       0.75      0.75      0.75         4
                  Gonartrosis leve, sin deformidad       0.75      1.00      0.86         6
 Hernias y protrusiones discales cervical y lumbar       0.00      0.00      0.00         2
                              Síndrome subacromial       0.00      0.00      0.00         3
-                            Tendinopatía manguito       1.00      0.50      0.67         2
+                            Tendinopatía manguito       0.33      0.50      0.40         2
                            Tendinopatía rotuliana       0.00      0.00      0.00         3
 
                                          accuracy                           0.45        29
-                                        macro avg       0.36      0.33      0.34        29
-                                     weighted avg       0.43      0.45      0.43        29
+                                        macro avg       0.27      0.33      0.30        29
+                                     weighted avg       0.36      0.45      0.40        29
 
 Matriz de confusión:
-[[0 0 1 0 0 0 0 0 1]
- [0 3 0 0 0 0 0 0 1]
- [1 0 0 1 0 1 0 0 0]
+[[0 1 0 0 0 1 0 0 0]
+ [0 3 0 0 0 0 0 1 0]
+ [0 0 0 1 0 1 1 0 0]
  [0 0 1 3 0 0 0 0 0]
  [0 0 0 0 6 0 0 0 0]
  [1 0 0 0 0 0 0 0 1]
  [0 0 1 0 2 0 0 0 0]
  [0 1 0 0 0 0 0 1 0]
- [2 0 1 0 0 0 0 0 0]]
+ [0 0 2 0 0 0 0 1 0]]
 
 Notas sobre las métricas:
 - Accuracy: Proporción de aciertos totales.
