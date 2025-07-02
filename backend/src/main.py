@@ -9,7 +9,6 @@ from src.routers.patient_router import patient_route
 from src.routers.cita_router import cita_route
 from src.routers.doctor_router import doctor_route
 from src.routers.tratamiento_router import tratamiento_route
-from src.routers.ai_router import ai_route
 from src.routers import auth
 from src.utils.database import Base, engine
 from dotenv import load_dotenv
@@ -54,7 +53,6 @@ app.include_router(patient_route, prefix="/api/pacientes", tags=["pacientes"])
 app.include_router(cita_route, prefix="/api/citas", tags=["citas"])
 app.include_router(doctor_route, prefix="/api/doctores", tags=["doctores"])
 app.include_router(tratamiento_route, prefix="/api/tratamientos", tags=["tratamientos"])
-app.include_router(ai_route, prefix="/api/ai", tags=["ai"])
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 
 
