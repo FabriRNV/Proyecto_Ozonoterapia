@@ -13,37 +13,39 @@ def test_health():
 
 def test_prediction():
     """Prueba el endpoint de predicción con diferentes casos"""
-    # Caso 1: Paciente con alta probabilidad de beneficio
+    # Caso 1: Paciente con dolor articular y ozonoterapia intraarticular
     caso1 = {
-        "edad": 45,
-        "sintomas_dolor": 8,
-        "tiempo_evolucion": 12,
-        "antecedentes_medicos": 1,
-        "nivel_actividad": 3,
-        "tratamientos_previos": 2,
+        "edad": 60,
+        "genero": "Femenino",
+        "motivo": "Dolor articular",
+        "tipo_tratamiento": "Ozonoterapia intraarticular",
+        "dosis": "Alta",
+        "resultados_observados": "Mejoría significativa",
     }
-
-    # Caso 2: Paciente con baja probabilidad de beneficio
+    # Caso 2: Paciente con dolor crónico y mejoría significativa
     caso2 = {
-        "edad": 30,
-        "sintomas_dolor": 3,
-        "tiempo_evolucion": 2,
-        "antecedentes_medicos": 4,
-        "nivel_actividad": 8,
-        "tratamientos_previos": 5,
+        "edad": 45,
+        "genero": "Masculino",
+        "motivo": "Dolor crónico",
+        "tipo_tratamiento": "Ozonoterapia sistémica",
+        "dosis": "Media",
+        "resultados_observados": "Mejoría significativa",
     }
-
+    # Caso 3: Paciente con inflamación y fisioterapia
+    caso3 = {
+        "edad": 35,
+        "genero": "Femenino",
+        "motivo": "Inflamación",
+        "tipo_tratamiento": "Fisioterapia",
+        "dosis": "Baja",
+        "resultados_observados": "Sin cambios",
+    }
     print("\n2. Prueba de predicciones:")
-
-    print("\nCaso 1 - Paciente con alta probabilidad:")
-    response1 = requests.post("http://localhost:8000/predict", json=caso1)
-    print(f"Status: {response1.status_code}")
-    print(f"Respuesta: {json.dumps(response1.json(), indent=2, ensure_ascii=False)}")
-
-    print("\nCaso 2 - Paciente con baja probabilidad:")
-    response2 = requests.post("http://localhost:8000/predict", json=caso2)
-    print(f"Status: {response2.status_code}")
-    print(f"Respuesta: {json.dumps(response2.json(), indent=2, ensure_ascii=False)}")
+    for i, caso in enumerate([caso1, caso2, caso3], 1):
+        print(f"\nCaso {i}:")
+        response = requests.post("http://localhost:8000/predict", json=caso)
+        print(f"Status: {response.status_code}")
+        print(f"Respuesta: {json.dumps(response.json(), indent=2, ensure_ascii=False)}")
     print("-" * 50)
 
 

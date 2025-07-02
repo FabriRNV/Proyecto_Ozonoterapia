@@ -1,51 +1,49 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Dict, Optional
-from .model import OzonoterapiaPredictor
+from typing import Dict, Optional, List
+from model import OzonoterapiaPredictor, PATOLOGIAS
 import os
-import numpy as np
 
 app = FastAPI(title="Ozonoterapia AI Service")
 model = OzonoterapiaPredictor()
 
-# Datos de entrenamiento de ejemplo
-X_train = np.array(
-    [
-        [45, 8, 12, 1, 3, 2],  # Caso positivo
-        [30, 3, 2, 4, 8, 5],  # Caso negativo
-        [50, 7, 10, 2, 4, 3],  # Caso positivo
-        [35, 4, 3, 3, 7, 4],  # Caso negativo
-        [55, 9, 15, 1, 2, 1],  # Caso positivo
-        [40, 5, 5, 3, 6, 4],  # Caso negativo
-    ]
-)
-
-y_train = np.array([1, 0, 1, 0, 1, 0])  # 1 para casos positivos, 0 para negativos
-
-# Entrenar el modelo al iniciar
-model.train(X_train, y_train)
+# Cargar modelo entrenado si existe
+MODEL_PATH = "ozonoterapia_model.joblib"
+if os.path.exists(MODEL_PATH):
+    model.load_model(MODEL_PATH)
 
 
 class PredictionRequest(BaseModel):
     edad: int
-    sintomas_dolor: int  # Escala 1-10
-    tiempo_evolucion: int  # Meses
-    antecedentes_medicos: int  # Número de condiciones
-    nivel_actividad: int  # Escala 1-10
-    tratamientos_previos: int  # Número de tratamientos
+    genero: str
+    motivo: str
+    tipo_tratamiento: str
+    dosis: str
+    resultados_observados: str
+
+
+class PatologiaProbabilidad(BaseModel):
+    patologia: str
+    probabilidad: float
 
 
 class PredictionResponse(BaseModel):
-    recomendado: bool
+    patologia_predicha: str
     probabilidad: float
-    explicacion: str
+    ranking: List[PatologiaProbabilidad]
 
 
 @app.post("/predict", response_model=PredictionResponse)
 async def predict(request: PredictionRequest):
     try:
         prediction = model.predict(request.dict())
-        return prediction
+        # Adaptar el ranking a la respuesta Pydantic
+        ranking = [PatologiaProbabilidad(**r) for r in prediction["ranking"]]
+        return PredictionResponse(
+            patologia_predicha=prediction["patologia_predicha"],
+            probabilidad=prediction["probabilidad"],
+            ranking=ranking,
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
