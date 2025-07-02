@@ -192,7 +192,7 @@ async def register(user: UserCreate, db: Session = Depends(get_db)):
         )
 
 
-@router.post("/login", response_model=Token)
+@router.post("/login")
 async def login_json(login_data: LoginRequest, db: Session = Depends(get_db)):
     try:
         user = db.query(User).filter(User.username == login_data.username).first()
@@ -216,8 +216,13 @@ async def login_json(login_data: LoginRequest, db: Session = Depends(get_db)):
         )
 
         return {
-            "access_token": access_token,
-            "token_type": "bearer",
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "id": user.id,
+            "username": user.username,  
+            "email": user.email
+            }
         }
     except HTTPException:
         raise
